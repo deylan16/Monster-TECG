@@ -1,14 +1,15 @@
 package interfaz.proyecto;
 
+import clases.Jugadores;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Ventana extends JPanel {
     JPanel PanelLucha,panelSuperior;
-    ImagenFondo CartaIzquierda,vidaizquierda,manaizquierda;
-    int vida = 1000,mana = 1000;
+        public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4;
     private static Ventana Instancia = null;
+    public int NumeroCartamuestra =0;
 
     JFrame frame = new JFrame("Monster TECG");
 
@@ -40,8 +41,8 @@ public class Ventana extends JPanel {
         //panel superior
         PanelSuperior();
         //Carta principal izquierda
-        CartaIzquierda = new ImagenFondo("imagenes/Revez carta.jpg",false);
-        PanelLucha.add(CartaIzquierda,dimensiones(1, 1, 1, 1, 0.9, 1.0));
+        CartaUsuario = new ImagenFondo("imagenes/Revez carta.jpg",false);
+        PanelLucha.add(CartaUsuario,dimensiones(1, 1, 1, 1, 0.9, 1.0));
         //esquina inferior izquierda
         PanelLucha.add(new ImagenFondo("imagenes/esquina inferior izquierda.jpg",false),dimensiones(0, 2, 1, 1, 0.7, 0.9));
         //centro
@@ -57,44 +58,214 @@ public class Ventana extends JPanel {
         public void panelUsuario(){
             JPanel panelUsuario = new JPanel();
             panelUsuario.setLayout(new GridBagLayout());
-            JLabel LabelVida = new JLabel("Vida:");
-            LabelVida.setFont(new Font("Arial", Font.PLAIN, 30));
-            GridBagConstraints LabelVidaDimension = dimensiones(0, 0, 1, 1, 0.0, 0.01);
-            panelUsuario.add(LabelVida,LabelVidaDimension);
-            JLabel LabelMana = new JLabel("Mana:");
-            LabelMana.setFont(new Font("Arial", Font.PLAIN, 30));
-            GridBagConstraints LabelManaDimension = dimensiones(0, 1, 1, 1, 0.0, 0.0);
-            panelUsuario.add(LabelMana,LabelManaDimension);
-            JButton btenviar2 = new JButton("Enviar");
-            btenviar2.addActionListener(ex -> {
+            ImagenFondo ImagenDeck = new ImagenFondo("imagenes/Revez carta.jpg",false);
+            panelUsuario.add(ImagenDeck,dimensiones(0, 0, 1, 1, 1.0, 1.0));
+            JButton deck = new JButton("Recoger");
+            panelUsuario.add(deck,dimensiones(0, 1, 1, 1, 1.0, 0.01));
+            JButton rotarizquierda = new JButton("<");
+            rotarizquierda.addActionListener(ex -> {
                 new Thread(() -> {
-                    try {
-                        Animacion.Anima(CartaIzquierda);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    NumeroCartamuestra -=1;
+                    Jugadores Usuario = Jugadores.getInstance("Usuario");
+                    if(NumeroCartamuestra <= 0){
+                        NumeroCartamuestra = Usuario.Mano.getSize();
                     }
-                    bajaVida(100);
-                    bajamana(100);
+                    System.out.print(NumeroCartamuestra);
+                    Usuario.actualizamano(NumeroCartamuestra);
                 }).start();
+            });
+            panelUsuario.add(rotarizquierda,dimensiones(1, 0, 1, 2, 1.0, 1.0));
+            ImagenCarta1 = new ImagenFondo("imagenes/vacio.jpg",false);
+            panelUsuario.add(ImagenCarta1,dimensiones(2, 0, 1, 1, 1.0, 1.0));
+            JButton Carta1 = new JButton("Usar");
+            Carta1.addActionListener(ex -> {
+                Jugadores Usuario = Jugadores.getInstance("Usuario");
+                if (Usuario.getMana() >=  ImagenCarta1.getCarta().getCoste()) {
+                    new Thread(() -> {
+                        try {
+                            Animacion.Anima(CartaUsuario);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        bajaVida(ImagenCarta1.getCarta().getDaño(), "Enemigo");
+                        bajamana(ImagenCarta1.getCarta().getCoste(), "Usuario");
+                        CartaUsuario.imagen = ImagenCarta1.getCarta().getImagen();
+                    }).start();
+                }else{
+                    avisomana();
+                }
 
             });
-            panelUsuario.add(btenviar2);
+            panelUsuario.add(Carta1,dimensiones(2, 1, 1, 1, 1.0, 0.01));
+            ImagenCarta2 = new ImagenFondo("imagenes/vacio.jpg",false);
+            panelUsuario.add(ImagenCarta2,dimensiones(3, 0, 1, 1, 1.0, 1.0));
+            JButton Carta2 = new JButton("Usar");
+            Carta2.addActionListener(ex -> {
+                Jugadores Usuario = Jugadores.getInstance("Usuario");
+                if (Usuario.getMana() >=  ImagenCarta2.getCarta().getCoste()) {
+                    new Thread(() -> {
+                        try {
+                            Animacion.Anima(CartaUsuario);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        bajaVida(ImagenCarta2.getCarta().getDaño(),"Enemigo");
+                        bajamana(ImagenCarta2.getCarta().getCoste(),"Usuario");
+                        CartaUsuario.imagen = ImagenCarta2.getCarta().getImagen();
+                    }).start();
+                }else{
+                    avisomana();
+                }
+
+            });
+            panelUsuario.add(Carta2,dimensiones(3, 1, 1, 1, 1.0, 0.01));
+            ImagenCarta3 = new ImagenFondo("imagenes/vacio.jpg",false);
+            panelUsuario.add(ImagenCarta3,dimensiones(4, 0, 1, 1, 1.0, 1.0));
+            JButton Carta3 = new JButton("Usar");
+            Carta3.addActionListener(ex -> {
+                Jugadores Usuario = Jugadores.getInstance("Usuario");
+                if (Usuario.getMana() >=  ImagenCarta3.getCarta().getCoste()) {
+                    new Thread(() -> {
+                        try {
+                            Animacion.Anima(CartaUsuario);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        bajaVida(ImagenCarta3.getCarta().getDaño(),"Enemigo");
+                        bajamana(ImagenCarta3.getCarta().getCoste(),"Usuario");
+                        CartaUsuario.imagen = ImagenCarta3.getCarta().getImagen();
+                    }).start();
+                }else{
+                    avisomana();
+                }
+
+            });
+            panelUsuario.add(Carta3,dimensiones(4, 1, 1, 1, 1.0, 0.01));
+            ImagenCarta4 = new ImagenFondo("imagenes/vacio.jpg",false);
+            panelUsuario.add(ImagenCarta4,dimensiones(5, 0, 1, 1, 1.0, 1.0));
+            JButton Carta4 = new JButton("Usar");
+            Carta4.addActionListener(ex -> {
+                Jugadores Usuario = Jugadores.getInstance("Usuario");
+                if (Usuario.getMana() >=  ImagenCarta4.getCarta().getCoste()) {
+                    new Thread(() -> {
+                        try {
+                            Animacion.Anima(CartaUsuario);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        bajaVida(ImagenCarta4.getCarta().getDaño(),"Enemigo");
+                        bajamana(ImagenCarta4.getCarta().getCoste(),"Usuario");
+                        CartaUsuario.imagen = ImagenCarta4.getCarta().getImagen();
+                    }).start();
+                }else{
+                    avisomana();
+                }
+
+            });
+            panelUsuario.add(Carta4,dimensiones(5, 1, 1, 1, 1.0, 0.01));
+            JButton rotarderecha = new JButton(">");
+            rotarderecha.addActionListener(ex -> {
+                new Thread(() -> {
+                    NumeroCartamuestra +=1;
+                    Jugadores Usuario = Jugadores.getInstance("Usuario");
+                    if(NumeroCartamuestra >= Usuario.Mano.getSize()){
+                        NumeroCartamuestra = 0;
+                    }
+                    System.out.print(NumeroCartamuestra);
+                    Usuario.actualizamano(NumeroCartamuestra);
+                }).start();
+            });
+            panelUsuario.add(rotarderecha,dimensiones(6, 0, 1, 2, 1.0, 1.0));
+            JButton Movimientos = new JButton("Movimientos");
+            panelUsuario.add(Movimientos,dimensiones(7, 0, 1, 2, 1.0, 1.0));
             GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 1, 1.0, 0.1);
             frame.add(panelUsuario,usuarioDimension);
         }
+
+
     public void PanelSuperior(){
         panelSuperior = new ImagenFondo("imagenes/fondo superior.jpg",false);
         panelSuperior.setLayout(new GridBagLayout());
-        vidaizquierda = new ImagenFondo("imagenes/vida 1000.jpg",false);
-        panelSuperior.add(vidaizquierda,dimensiones(0, 0, 1, 1, 0.9, 1.0));
-        manaizquierda = new ImagenFondo("imagenes/mana 1000.jpg",false);
-        panelSuperior.add(manaizquierda,dimensiones(0, 1, 1, 1, 0.9, 1.0));
-        ImagenFondo vidaderecha = new ImagenFondo("imagenes/vida 1000.jpg",true);
-        panelSuperior.add(vidaderecha,dimensiones(2, 0, 1, 1, 0.9, 1.0));
-        ImagenFondo manaderecha = new ImagenFondo("imagenes/mana 1000.jpg",true);
-        panelSuperior.add(manaderecha,dimensiones(2, 1, 1, 1, 0.9, 1.0));
+        vidausuario = new ImagenFondo("imagenes/vida 1000.jpg",false);
+        panelSuperior.add(vidausuario,dimensiones(0, 0, 1, 1, 0.9, 1.0));
+        manausuario = new ImagenFondo("imagenes/mana 1000.jpg",false);
+        panelSuperior.add(manausuario,dimensiones(0, 1, 1, 1, 0.9, 1.0));
+        vidaenemigo = new ImagenFondo("imagenes/vida 1000.jpg",true);
+        panelSuperior.add(vidaenemigo,dimensiones(2, 0, 1, 1, 0.9, 1.0));
+        manaenemigo = new ImagenFondo("imagenes/mana 1000.jpg",true);
+        panelSuperior.add(manaenemigo,dimensiones(2, 1, 1, 1, 0.9, 1.0));
 
         PanelLucha.add(panelSuperior,dimensiones(0, 0, 5, 1, 0.7, 0.8));
+    }
+    public void avisomana(){
+        new Thread(() -> {
+            Jugadores recibio = Jugadores.getInstance("Usuario");
+            ImagenFondo interfaz = this.manausuario;
+            if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
+                interfaz.imagen = "imagenes/mana 900 aviso.jpg";
+                interfaz.repaint();
+            }
+            else{
+                if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
+                    interfaz.imagen = "imagenes/mana 800 aviso.jpg";
+                    interfaz.repaint();
+                }
+                else {
+                    if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
+                        interfaz.imagen = "imagenes/mana 700 aviso.jpg";
+                        interfaz.repaint();
+                    }
+                    else {
+                        if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
+                            interfaz.imagen = "imagenes/mana 600 aviso.jpg";
+                            interfaz.repaint();
+                        }
+                        else {
+                            if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
+                                interfaz.imagen = "imagenes/mana 500 aviso.jpg";
+                                interfaz.repaint();
+                            }
+                            else {
+                                if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
+                                    interfaz.imagen = "imagenes/mana 400 aviso.jpg";
+                                    interfaz.repaint();
+                                }
+                                else {
+                                    if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
+                                        interfaz.imagen = "imagenes/mana 300 aviso.jpg";
+                                        interfaz.repaint();
+                                    }
+                                    else {
+                                        if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
+                                            interfaz.imagen = "imagenes/mana 200 aviso.jpg";
+                                            interfaz.repaint();
+                                        }
+                                        else {
+                                            if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
+                                                interfaz.imagen = "imagenes/mana 100 aviso.jpg";
+                                                interfaz.repaint();
+                                            }
+                                            else {
+                                                if (recibio.getMana() <= 0) {
+                                                    interfaz.imagen = "imagenes/mana 0 aviso.jpg";
+                                                    interfaz.repaint();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            bajamana(0,"Usuario");
+        }).start();
     }
 
     public GridBagConstraints dimensiones(int empiezaC, int empiezaF, int ocupaC, int ocupaF,Double estirax,Double estiray){
@@ -108,56 +279,67 @@ public class Ventana extends JPanel {
         constraints.fill = GridBagConstraints.BOTH;
         return constraints;
     }
-    public void bajaVida(int daño){
-        this.vida -= daño;
-        if (this.vida <= 900 && this.vida > 800) {
-            vidaizquierda.imagen = "imagenes/vida 900.jpg";
-            vidaizquierda.repaint();
+    public void bajaVida(int daño,String quien){
+        Jugadores recibio;
+        ImagenFondo interfaz;
+
+        if (quien == "Enemigo"){
+            recibio = Jugadores.getInstance("Enemigo");
+            interfaz = this.vidaenemigo ;
         }
         else{
-            if (this.vida <= 800 && this.vida > 700) {
-                vidaizquierda.imagen = "imagenes/vida 800.jpg";
-                vidaizquierda.repaint();
+            recibio = Jugadores.getInstance("Usuario");
+            interfaz = this.vidausuario ;
+        }
+        recibio.daño(daño);
+        if (recibio.getVida() <= 900 && recibio.getVida() > 800) {
+            interfaz.imagen = "imagenes/vida 900.jpg";
+            interfaz.repaint();
+        }
+        else{
+            if (recibio.getVida() <= 800 && recibio.getVida() > 700) {
+                interfaz.imagen = "imagenes/vida 800.jpg";
+                interfaz.repaint();
             }
             else {
-                if (this.vida <= 700 && this.vida > 600) {
-                    vidaizquierda.imagen = "imagenes/vida 700.jpg";
-                    vidaizquierda.repaint();
+                if (recibio.getVida() <= 700 && recibio.getVida() > 600) {
+                    interfaz.imagen = "imagenes/vida 700.jpg";
+                    interfaz.repaint();
                 }
                 else {
-                    if (this.vida <= 600 && this.vida > 500) {
-                        vidaizquierda.imagen = "imagenes/vida 600.jpg";
-                        vidaizquierda.repaint();
+                    if (recibio.getVida() <= 600 && recibio.getVida() > 500) {
+                        interfaz.imagen = "imagenes/vida 600.jpg";
+                        interfaz.repaint();
                     }
                     else {
-                        if (this.vida <= 500 && this.vida > 400) {
-                            vidaizquierda.imagen = "imagenes/vida 500.jpg";
-                            vidaizquierda.repaint();
+                        if (recibio.getVida() <= 500 && recibio.getVida() > 400) {
+                            interfaz.imagen = "imagenes/vida 500.jpg";
+                            interfaz.repaint();
                         }
                         else {
-                            if (this.vida <= 400 && this.vida > 300) {
-                                vidaizquierda.imagen = "imagenes/vida 400.jpg";
-                                vidaizquierda.repaint();
+                            if (recibio.getVida() <= 400 && recibio.getVida() > 300) {
+                                interfaz.imagen = "imagenes/vida 400.jpg";
+                                interfaz.repaint();
                             }
                             else {
-                                if (this.vida <= 300 && this.vida > 200) {
-                                    vidaizquierda.imagen = "imagenes/vida 300.jpg";
-                                    vidaizquierda.repaint();
+                                if (recibio.getVida() <= 300 && recibio.getVida() > 200) {
+                                    interfaz.imagen = "imagenes/vida 300.jpg";
+                                    interfaz.repaint();
                                 }
                                 else {
-                                    if (this.vida <= 200 && this.vida > 100) {
-                                        vidaizquierda.imagen = "imagenes/vida 200.jpg";
-                                        vidaizquierda.repaint();
+                                    if (recibio.getVida() <= 200 && recibio.getVida() > 100) {
+                                        interfaz.imagen = "imagenes/vida 200.jpg";
+                                        interfaz.repaint();
                                     }
                                     else {
-                                        if (this.vida <= 100 && this.vida > 0) {
-                                            vidaizquierda.imagen = "imagenes/vida 100.jpg";
-                                            vidaizquierda.repaint();
+                                        if (recibio.getVida()<= 100 && recibio.getVida() > 0) {
+                                            interfaz.imagen = "imagenes/vida 100.jpg";
+                                            interfaz.repaint();
                                         }
                                         else {
-                                            if (this.vida <= 0) {
-                                                vidaizquierda.imagen = "imagenes/vida 0.jpg";
-                                                vidaizquierda.repaint();
+                                            if (recibio.getVida() <= 0) {
+                                                interfaz.imagen = "imagenes/vida 0.jpg";
+                                                interfaz.repaint();
                                             }
                                         }
                                     }
@@ -169,56 +351,67 @@ public class Ventana extends JPanel {
             }
         }
     }
-    public void bajamana(int gasto){
-        this.mana-= gasto;
-        if (this.mana <= 900 && this.mana > 800) {
-            manaizquierda.imagen = "imagenes/mana 900.jpg";
-            manaizquierda.repaint();
+    public void bajamana(int gasto,String quien){
+        Jugadores recibio;
+        ImagenFondo interfaz;
+
+        if (quien == "Enemigo"){
+            recibio = Jugadores.getInstance("Enemigo");
+            interfaz = this.manaenemigo ;
         }
         else{
-            if (this.mana <= 800 && this.mana > 700) {
-                manaizquierda.imagen = "imagenes/mana 800.jpg";
-                manaizquierda.repaint();
+            recibio = Jugadores.getInstance("Usuario");
+            interfaz = this.manausuario ;
+        }
+        recibio.gasto(gasto);
+        if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
+            interfaz.imagen = "imagenes/mana 900.jpg";
+            interfaz.repaint();
+        }
+        else{
+            if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
+                interfaz.imagen = "imagenes/mana 800.jpg";
+                interfaz.repaint();
             }
             else {
-                if (this.mana <= 700 && this.mana > 600) {
-                    manaizquierda.imagen = "imagenes/mana 700.jpg";
-                    manaizquierda.repaint();
+                if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
+                    interfaz.imagen = "imagenes/mana 700.jpg";
+                    interfaz.repaint();
                 }
                 else {
-                    if (this.mana <= 600 && this.mana > 500) {
-                        manaizquierda.imagen = "imagenes/mana 600.jpg";
-                        manaizquierda.repaint();
+                    if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
+                        interfaz.imagen = "imagenes/mana 600.jpg";
+                        interfaz.repaint();
                     }
                     else {
-                        if (this.mana <= 500 && this.vida > 400) {
-                            manaizquierda.imagen = "imagenes/mana 500.jpg";
-                            manaizquierda.repaint();
+                        if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
+                            interfaz.imagen = "imagenes/mana 500.jpg";
+                            interfaz.repaint();
                         }
                         else {
-                            if (this.mana <= 400 && this.mana > 300) {
-                                manaizquierda.imagen = "imagenes/mana 400.jpg";
-                                manaizquierda.repaint();
+                            if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
+                                interfaz.imagen = "imagenes/mana 400.jpg";
+                                interfaz.repaint();
                             }
                             else {
-                                if (this.mana <= 300 && this.mana > 200) {
-                                    manaizquierda.imagen = "imagenes/mana 300.jpg";
-                                    manaizquierda.repaint();
+                                if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
+                                    interfaz.imagen = "imagenes/mana 300.jpg";
+                                    interfaz.repaint();
                                 }
                                 else {
-                                    if (this.mana <= 200 && this.mana > 100) {
-                                        manaizquierda.imagen = "imagenes/mana 200.jpg";
-                                        manaizquierda.repaint();
+                                    if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
+                                        interfaz.imagen = "imagenes/mana 200.jpg";
+                                        interfaz.repaint();
                                     }
                                     else {
-                                        if (this.mana <= 100 && this.mana > 0) {
-                                            manaizquierda.imagen = "imagenes/mana 100.jpg";
-                                            manaizquierda.repaint();
+                                        if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
+                                            interfaz.imagen = "imagenes/mana 100.jpg";
+                                            interfaz.repaint();
                                         }
                                         else {
-                                            if (this.mana <= 0) {
-                                                manaizquierda.imagen = "imagenes/mana 0.jpg";
-                                                manaizquierda.repaint();
+                                            if (recibio.getMana() <= 0) {
+                                                interfaz.imagen = "imagenes/mana 0.jpg";
+                                                interfaz.repaint();
                                             }
                                         }
                                     }

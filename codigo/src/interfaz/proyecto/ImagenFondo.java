@@ -1,18 +1,26 @@
 package interfaz.proyecto;
+import clases.Cartas;
+
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class ImagenFondo extends JPanel{
     private Image fondo=null;
-    String imagen;
+    public String imagen;
     boolean voltear;
+    Cartas carta = null;
     public ImagenFondo(String imagen, boolean voltear){
         this.imagen = imagen;
         this.voltear = voltear;
 
+    }
+    public void setCarta(Cartas carta){
+        this.carta = carta;
+    }
+    public Cartas getCarta(){
+        return carta;
     }
 
     @Override
