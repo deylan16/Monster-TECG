@@ -44,11 +44,11 @@ public class Jugadores {
         this.mana -= gasto;
     }
     public void creaMano(){
-        Mano.add(Cartas.carta1);
-        Mano.add(Cartas.carta2);
-        Mano.add(Cartas.carta3);
-        Mano.add(Cartas.carta4);
-        Mano.add(Cartas.carta5);
+        Mano.add(Cartas.carta15);
+        Mano.add(Cartas.carta7);
+        Mano.add(Cartas.carta20);
+        Mano.add(Cartas.carta9);
+        Mano.add(Cartas.carta10);
 
         actualizamano(0);
     }
