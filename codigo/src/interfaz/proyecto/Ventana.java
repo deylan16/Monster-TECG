@@ -7,7 +7,8 @@ import java.awt.*;
 
 public class Ventana extends JPanel {
     JPanel PanelLucha,panelSuperior;
-        public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4;
+    public JButton Carta1,Carta2,Carta3,Carta4;
+    public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4;
     private static Ventana Instancia = null;
     public int NumeroCartamuestra =0;
 
@@ -68,16 +69,15 @@ public class Ventana extends JPanel {
                     NumeroCartamuestra -=1;
                     Jugadores Usuario = Jugadores.getInstance("Usuario");
                     if(NumeroCartamuestra <= 0){
-                        NumeroCartamuestra = Usuario.Mano.getSize();
+                        NumeroCartamuestra = Usuario.Mano.getSize()-1;
                     }
-                    System.out.print(NumeroCartamuestra);
                     Usuario.actualizamano(NumeroCartamuestra);
                 }).start();
             });
             panelUsuario.add(rotarizquierda,dimensiones(1, 0, 1, 2, 1.0, 1.0));
             ImagenCarta1 = new ImagenFondo("imagenes/vacio.jpg",false);
             panelUsuario.add(ImagenCarta1,dimensiones(2, 0, 1, 1, 1.0, 1.0));
-            JButton Carta1 = new JButton("Usar");
+            Carta1 = new JButton("Usar");
             Carta1.addActionListener(ex -> {
                 Jugadores Usuario = Jugadores.getInstance("Usuario");
                 if (Usuario.getMana() >=  ImagenCarta1.getCarta().getCoste()) {
@@ -90,6 +90,11 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta1.getCarta().getDaño(), "Enemigo");
                         bajamana(ImagenCarta1.getCarta().getCoste(), "Usuario");
                         CartaUsuario.imagen = ImagenCarta1.getCarta().getImagen();
+                        Usuario.Mano.borrar(ImagenCarta1.getCarta());
+                        if(NumeroCartamuestra >= Usuario.Mano.getSize()){
+                            NumeroCartamuestra = 0;
+                        }
+                        Usuario.actualizamano(NumeroCartamuestra);
                     }).start();
                 }else{
                     avisomana();
@@ -99,7 +104,7 @@ public class Ventana extends JPanel {
             panelUsuario.add(Carta1,dimensiones(2, 1, 1, 1, 1.0, 0.01));
             ImagenCarta2 = new ImagenFondo("imagenes/vacio.jpg",false);
             panelUsuario.add(ImagenCarta2,dimensiones(3, 0, 1, 1, 1.0, 1.0));
-            JButton Carta2 = new JButton("Usar");
+            Carta2 = new JButton("Usar");
             Carta2.addActionListener(ex -> {
                 Jugadores Usuario = Jugadores.getInstance("Usuario");
                 if (Usuario.getMana() >=  ImagenCarta2.getCarta().getCoste()) {
@@ -112,6 +117,11 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta2.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta2.getCarta().getCoste(),"Usuario");
                         CartaUsuario.imagen = ImagenCarta2.getCarta().getImagen();
+                        Usuario.Mano.borrar(ImagenCarta2.getCarta());
+                        if(NumeroCartamuestra >= Usuario.Mano.getSize()){
+                            NumeroCartamuestra = 0;
+                        }
+                        Usuario.actualizamano(NumeroCartamuestra);
                     }).start();
                 }else{
                     avisomana();
@@ -121,7 +131,7 @@ public class Ventana extends JPanel {
             panelUsuario.add(Carta2,dimensiones(3, 1, 1, 1, 1.0, 0.01));
             ImagenCarta3 = new ImagenFondo("imagenes/vacio.jpg",false);
             panelUsuario.add(ImagenCarta3,dimensiones(4, 0, 1, 1, 1.0, 1.0));
-            JButton Carta3 = new JButton("Usar");
+            Carta3 = new JButton("Usar");
             Carta3.addActionListener(ex -> {
                 Jugadores Usuario = Jugadores.getInstance("Usuario");
                 if (Usuario.getMana() >=  ImagenCarta3.getCarta().getCoste()) {
@@ -133,7 +143,14 @@ public class Ventana extends JPanel {
                         }
                         bajaVida(ImagenCarta3.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta3.getCarta().getCoste(),"Usuario");
+                        bajamana(-250,"Usuario");
+                        System.out.print(Usuario.getMana());
                         CartaUsuario.imagen = ImagenCarta3.getCarta().getImagen();
+                        Usuario.Mano.borrar(ImagenCarta3.getCarta());
+                        if(NumeroCartamuestra >= Usuario.Mano.getSize()){
+                            NumeroCartamuestra = 0;
+                        }
+                        Usuario.actualizamano(NumeroCartamuestra);
                     }).start();
                 }else{
                     avisomana();
@@ -143,7 +160,7 @@ public class Ventana extends JPanel {
             panelUsuario.add(Carta3,dimensiones(4, 1, 1, 1, 1.0, 0.01));
             ImagenCarta4 = new ImagenFondo("imagenes/vacio.jpg",false);
             panelUsuario.add(ImagenCarta4,dimensiones(5, 0, 1, 1, 1.0, 1.0));
-            JButton Carta4 = new JButton("Usar");
+            Carta4 = new JButton("Usar");
             Carta4.addActionListener(ex -> {
                 Jugadores Usuario = Jugadores.getInstance("Usuario");
                 if (Usuario.getMana() >=  ImagenCarta4.getCarta().getCoste()) {
@@ -156,6 +173,11 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta4.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta4.getCarta().getCoste(),"Usuario");
                         CartaUsuario.imagen = ImagenCarta4.getCarta().getImagen();
+                        Usuario.Mano.borrar(ImagenCarta4.getCarta());
+                        if(NumeroCartamuestra >= Usuario.Mano.getSize()){
+                            NumeroCartamuestra = 0;
+                        }
+                        Usuario.actualizamano(NumeroCartamuestra);
                     }).start();
                 }else{
                     avisomana();
@@ -171,7 +193,7 @@ public class Ventana extends JPanel {
                     if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                         NumeroCartamuestra = 0;
                     }
-                    System.out.print(NumeroCartamuestra);
+
                     Usuario.actualizamano(NumeroCartamuestra);
                 }).start();
             });
@@ -351,67 +373,62 @@ public class Ventana extends JPanel {
             }
         }
     }
-    public void bajamana(int gasto,String quien){
+    public void bajamana(int gasto,String quien) {
         Jugadores recibio;
         ImagenFondo interfaz;
 
-        if (quien == "Enemigo"){
+        if (quien == "Enemigo") {
             recibio = Jugadores.getInstance("Enemigo");
-            interfaz = this.manaenemigo ;
-        }
-        else{
+            interfaz = this.manaenemigo;
+        } else {
             recibio = Jugadores.getInstance("Usuario");
-            interfaz = this.manausuario ;
+            interfaz = this.manausuario;
         }
         recibio.gasto(gasto);
-        if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
-            interfaz.imagen = "imagenes/mana 900.jpg";
+        if (recibio.getMana() <= 1000 && recibio.getMana() > 900) {
+            interfaz.imagen = "imagenes/mana 1000.jpg";
             interfaz.repaint();
-        }
-        else{
-            if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
-                interfaz.imagen = "imagenes/mana 800.jpg";
+        } else {
+            if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
+                interfaz.imagen = "imagenes/mana 900.jpg";
                 interfaz.repaint();
-            }
-            else {
-                if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
-                    interfaz.imagen = "imagenes/mana 700.jpg";
+            } else {
+                if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
+                    interfaz.imagen = "imagenes/mana 800.jpg";
                     interfaz.repaint();
-                }
-                else {
-                    if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
-                        interfaz.imagen = "imagenes/mana 600.jpg";
+                } else {
+                    if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
+                        interfaz.imagen = "imagenes/mana 700.jpg";
                         interfaz.repaint();
-                    }
-                    else {
-                        if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
-                            interfaz.imagen = "imagenes/mana 500.jpg";
+                    } else {
+                        if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
+                            interfaz.imagen = "imagenes/mana 600.jpg";
                             interfaz.repaint();
-                        }
-                        else {
-                            if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
-                                interfaz.imagen = "imagenes/mana 400.jpg";
+                        } else {
+                            if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
+                                interfaz.imagen = "imagenes/mana 500.jpg";
                                 interfaz.repaint();
-                            }
-                            else {
-                                if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
-                                    interfaz.imagen = "imagenes/mana 300.jpg";
+                            } else {
+                                if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
+                                    interfaz.imagen = "imagenes/mana 400.jpg";
                                     interfaz.repaint();
-                                }
-                                else {
-                                    if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
-                                        interfaz.imagen = "imagenes/mana 200.jpg";
+                                } else {
+                                    if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
+                                        interfaz.imagen = "imagenes/mana 300.jpg";
                                         interfaz.repaint();
-                                    }
-                                    else {
-                                        if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
-                                            interfaz.imagen = "imagenes/mana 100.jpg";
+                                    } else {
+                                        if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
+                                            interfaz.imagen = "imagenes/mana 200.jpg";
                                             interfaz.repaint();
-                                        }
-                                        else {
-                                            if (recibio.getMana() <= 0) {
-                                                interfaz.imagen = "imagenes/mana 0.jpg";
+                                        } else {
+                                            if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
+                                                interfaz.imagen = "imagenes/mana 100.jpg";
                                                 interfaz.repaint();
+                                            } else {
+                                                if (recibio.getMana() <= 0) {
+                                                    interfaz.imagen = "imagenes/mana 0.jpg";
+                                                    interfaz.repaint();
+                                                }
                                             }
                                         }
                                     }
@@ -423,5 +440,4 @@ public class Ventana extends JPanel {
             }
         }
     }
-
 }

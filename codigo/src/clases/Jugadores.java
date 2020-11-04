@@ -31,6 +31,8 @@ public class Jugadores {
 
         }
     }
+    public void agregaVacio(){
+        Mano.add(Cartas.cartaVacia);}
     public int getVida(){
         return this.vida;
     }
@@ -49,6 +51,12 @@ public class Jugadores {
         Mano.add(Cartas.carta20);
         Mano.add(Cartas.carta9);
         Mano.add(Cartas.carta10);
+        Mano.add(Cartas.carta1);
+        Mano.add(Cartas.carta2);
+        Mano.add(Cartas.carta3);
+        Mano.add(Cartas.carta4);
+        Mano.add(Cartas.carta5);
+        Mano.add(Cartas.cartaVacia);
 
         actualizamano(0);
     }
@@ -61,31 +69,31 @@ public class Jugadores {
             } else {
                 if (NumeroCarta == 0) {
                     NumeroCarta += 1;
-                    ImagenFondo ventana = Ventana.getInstance().ImagenCarta1;
-                    ventana.imagen = Mano.getForIndex(i).getImagen();
-                    ventana.setCarta(Mano.getForIndex(i));
-                    ventana.repaint();
+                    ImagenFondo ventanai = Ventana.getInstance().ImagenCarta1;
+                    ventanai.imagen = Mano.getForIndex(i).getImagen();
+                    ventanai.setCarta(Mano.getForIndex(i));
+                    ventanai.repaint();
                 } else {
                     if (NumeroCarta == 1) {
                         NumeroCarta += 1;
-                        ImagenFondo ventana = Ventana.getInstance().ImagenCarta2;
-                        ventana.imagen = Mano.getForIndex(i).getImagen();
-                        ventana.setCarta(Mano.getForIndex(i));
-                        ventana.repaint();
+                        ImagenFondo ventanai = Ventana.getInstance().ImagenCarta2;
+                        ventanai.imagen = Mano.getForIndex(i).getImagen();
+                        ventanai.setCarta(Mano.getForIndex(i));
+                        ventanai.repaint();
                     } else {
                         if (NumeroCarta == 2) {
                             NumeroCarta += 1;
-                            ImagenFondo ventana = Ventana.getInstance().ImagenCarta3;
-                            ventana.imagen = Mano.getForIndex(i).getImagen();
-                            ventana.setCarta(Mano.getForIndex(i));
-                            ventana.repaint();
+                            ImagenFondo ventanai = Ventana.getInstance().ImagenCarta3;
+                            ventanai.imagen = Mano.getForIndex(i).getImagen();
+                            ventanai.setCarta(Mano.getForIndex(i));
+                            ventanai.repaint();
                         } else {
                             if (NumeroCarta == 3) {
                                 NumeroCarta += 1;
-                                ImagenFondo ventana = Ventana.getInstance().ImagenCarta4;
-                                ventana.imagen = Mano.getForIndex(i).getImagen();
-                                ventana.setCarta(Mano.getForIndex(i));
-                                ventana.repaint();
+                                ImagenFondo ventanai = Ventana.getInstance().ImagenCarta4;
+                                ventanai.imagen = Mano.getForIndex(i).getImagen();
+                                ventanai.setCarta(Mano.getForIndex(i));
+                                ventanai.repaint();
                             } else {
                                 NumeroCarta += 1;
                             }
@@ -94,6 +102,26 @@ public class Jugadores {
                 }
             }
             }
+        Ventana ventanab = Ventana.getInstance();
+        if( ventanab.ImagenCarta4.getCarta().getImagen() == "imagenes/vacio.jpg"){
+            ventanab.Carta4.setEnabled(false);
+        }else{
+            ventanab.Carta4.setEnabled(true);
+        }
+        if( ventanab.ImagenCarta3.getCarta().getImagen() == "imagenes/vacio.jpg"){
+            ventanab.Carta3.setEnabled(false);
+        }else{
+            ventanab.Carta3.setEnabled(true);
+        }if( ventanab.ImagenCarta2.getCarta().getImagen() == "imagenes/vacio.jpg"){
+            ventanab.Carta2.setEnabled(false);
+        }else{
+            ventanab.Carta2.setEnabled(true);
+        }
+        if( ventanab.ImagenCarta1.getCarta().getImagen() == "imagenes/vacio.jpg"){
+            ventanab.Carta1.setEnabled(false);
+        }else{
+            ventanab.Carta1.setEnabled(true);
+        }
         }
 
 

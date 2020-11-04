@@ -68,5 +68,62 @@ public class ListaCircular<T>  {
         }
         return null;
     }
+    public Node<T> getForIndex2(int indice) {
+        int i = 0;
+        if (this.isEmpty()) {
+            System.out.print("lista vacia");
+        }
+        else {
+            if (indice == 0) {
+                return this.first;
+            } else {
+                if (indice <= this.size) {
+                    Node<T> ref = this.first;
+                    while (i != indice) {
+                        ref = ref.getNext();
+                        i++;
+                    }
+                    return ref;
+                }
+            }
+        }
+        return null;
+    }
+    public void borrar(Cartas carta){
+        Node<T> ref = this.first;
+        T i = ref.getValue();
+        int cuenta = 0;
+        if (this.isEmpty()) {
+            System.out.print("lista vacia");
+        }else{if(carta == this.first.getValue()){
+                this.first = this.first.getNext();
+                this.first.setPrev(this.last);
+                this.last.setNext(this.first);
+                this.size -= 1;
+            } else {if(carta == this.last.getValue()){
+                    this.last = this.last.getPrev();
+                    this.first.setPrev(this.last);
+                    this.last.setNext(this.first);
+                    this.size -= 1;
+                } else {
+                        while (i != carta) {
+                            ref = ref.getNext();
+                            i = ref.getValue();
+                            cuenta += 1;
+                        }
+                        Jugadores Usuario = Jugadores.getInstance("Usuario");
+                        Usuario.Mano.getForIndex2(cuenta-1).setNext(Usuario.Mano.getForIndex2(cuenta+1));
+                        Usuario.Mano.getForIndex2(cuenta+1).setPrev(Usuario.Mano.getForIndex2(cuenta-1));
+                        this.size -= 1;
+                    }}
+                        verifica();
+                    }
+        }
+    public void verifica() {
+        if (getSize() < 4) {
+            Jugadores Usuario = Jugadores.getInstance("Usuario");
+            Usuario.agregaVacio();
+        }
+    }
 }
 

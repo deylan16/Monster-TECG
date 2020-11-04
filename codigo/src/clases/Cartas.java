@@ -21,8 +21,7 @@ public class Cartas {
     static Cartas carta18 = new Cartas(250,400,"imagenes/Huevonado.png");
     static Cartas carta19 = new Cartas(350,700,"imagenes/Phineas.png");
     static Cartas carta20 = new Cartas(350,700,"imagenes/Ferb.png");
-
-       
+    static Cartas cartaVacia = new Cartas(0,0,"imagenes/vacio.jpg");
     private int daño;
     private int coste;
     private String imagen;
