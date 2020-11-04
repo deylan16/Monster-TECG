@@ -61,9 +61,15 @@ public class ListaDoble<T> {
             System.out.print(ref.getValue());
         }
     }
+    public void deletePila() {
+        this.last = this.last.prev;
+        this.last.next = null;        
+    }
+    
     public int getSize(){
         return this.size;
     }
+    
     public T getForIndex(int indice){
         int i = 0;
         if (this.isEmpty()) {
