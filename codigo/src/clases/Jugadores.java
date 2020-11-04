@@ -51,7 +51,7 @@ public class Jugadores {
         Mano.add(Cartas.carta20);
         Mano.add(Cartas.carta9);
         Mano.add(Cartas.carta10);
-        Mano.add(Cartas.carta1);
+        Mano.add(Cartas.carta11);
         Mano.add(Cartas.carta2);
         Mano.add(Cartas.carta3);
         Mano.add(Cartas.carta4);

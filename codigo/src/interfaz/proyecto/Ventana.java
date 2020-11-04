@@ -90,6 +90,13 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta1.getCarta().getDaño(), "Enemigo");
                         bajamana(ImagenCarta1.getCarta().getCoste(), "Usuario");
                         CartaUsuario.imagen = ImagenCarta1.getCarta().getImagen();
+                        if (Usuario.getMana() > 750){
+                            int a = 1000 -Usuario.getMana();
+                            bajamana(-a,"Usuario");
+                        }
+                        else{
+                            bajamana(-250,"Usuario");
+                        }
                         Usuario.Mano.borrar(ImagenCarta1.getCarta());
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
@@ -117,6 +124,13 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta2.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta2.getCarta().getCoste(),"Usuario");
                         CartaUsuario.imagen = ImagenCarta2.getCarta().getImagen();
+                        if (Usuario.getMana() > 750){
+                            int a = 1000 -Usuario.getMana();
+                            bajamana(-a,"Usuario");
+                        }
+                        else{
+                            bajamana(-250,"Usuario");
+                        }
                         Usuario.Mano.borrar(ImagenCarta2.getCarta());
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
@@ -143,7 +157,13 @@ public class Ventana extends JPanel {
                         }
                         bajaVida(ImagenCarta3.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta3.getCarta().getCoste(),"Usuario");
-                        bajamana(-250,"Usuario");
+                        if (Usuario.getMana() > 750){
+                            int a = 1000 -Usuario.getMana();
+                            bajamana(-a,"Usuario");
+                        }
+                        else{
+                            bajamana(-250,"Usuario");
+                        }
                         System.out.print(Usuario.getMana());
                         CartaUsuario.imagen = ImagenCarta3.getCarta().getImagen();
                         Usuario.Mano.borrar(ImagenCarta3.getCarta());
@@ -173,6 +193,13 @@ public class Ventana extends JPanel {
                         bajaVida(ImagenCarta4.getCarta().getDaño(),"Enemigo");
                         bajamana(ImagenCarta4.getCarta().getCoste(),"Usuario");
                         CartaUsuario.imagen = ImagenCarta4.getCarta().getImagen();
+                        if (Usuario.getMana() > 750){
+                            int a = 1000 -Usuario.getMana();
+                            bajamana(-a,"Usuario");
+                            }
+                        else{
+                            bajamana(-250,"Usuario");
+                        }
                         Usuario.Mano.borrar(ImagenCarta4.getCarta());
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
@@ -200,7 +227,7 @@ public class Ventana extends JPanel {
             panelUsuario.add(rotarderecha,dimensiones(6, 0, 1, 2, 1.0, 1.0));
             JButton Movimientos = new JButton("Movimientos");
             panelUsuario.add(Movimientos,dimensiones(7, 0, 1, 2, 1.0, 1.0));
-            GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 1, 1.0, 0.1);
+            GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 2, 1.0, 0.3);
             frame.add(panelUsuario,usuarioDimension);
         }
 
