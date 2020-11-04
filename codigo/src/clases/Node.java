@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Node<T> {
     private T value;
-    private Node next;
-    private Node prev;
+    public Node next;
+    public Node prev;
 
     public Node() {
         this.next = null;
