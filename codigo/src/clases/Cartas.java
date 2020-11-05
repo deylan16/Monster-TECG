@@ -25,6 +25,7 @@ public class Cartas {
     private int daño;
     private int coste;
     private String imagen;
+    static ListaCircular<Cartas> Todas = new ListaCircular<Cartas>();
 
 
     public Cartas (int daño,int coste,String imagen){
@@ -41,6 +42,28 @@ public class Cartas {
     }
     public String getImagen(){
         return this.imagen;
+    }
+    static void crealistas(){
+        Todas.add(carta1);
+        Todas.add(carta2);
+        Todas.add(carta3);
+        Todas.add(carta4);
+        Todas.add(carta5);
+        Todas.add(carta6);
+        Todas.add(carta7);
+        Todas.add(carta8);
+        Todas.add(carta9);
+        Todas.add(carta10);
+        Todas.add(carta11);
+        Todas.add(carta12);
+        Todas.add(carta13);
+        Todas.add(carta14);
+        Todas.add(carta15);
+        Todas.add(carta16);
+        Todas.add(carta17);
+        Todas.add(carta18);
+        Todas.add(carta19);
+        Todas.add(carta20);
     }
 
 

@@ -62,8 +62,16 @@ public class ListaDoble<T> {
         }
     }
     public void deletePila() {
-        this.last = this.last.prev;
-        this.last.next = null;        
+        if(this.first == this.last){
+            this.first = null;
+            this.last = null;
+        }
+        else{
+            this.last = this.last.prev;
+            this.last.next = null;
+            this.size -= 1;
+        }
+
     }
     
     public int getSize(){

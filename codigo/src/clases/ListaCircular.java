@@ -116,7 +116,6 @@ public class ListaCircular<T>  {
                         Usuario.Mano.getForIndex2(cuenta+1).setPrev(Usuario.Mano.getForIndex2(cuenta-1));
                         this.size -= 1;
                     }}
-                        verifica();
                     }
         }
     public void verifica() {

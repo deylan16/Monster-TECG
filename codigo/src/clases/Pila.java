@@ -9,7 +9,7 @@ package clases;
  *
  * @author johnn
  */
-public class Pila {
+public class Pila<T> {
     private ListaDoble deck;
     
     public Pila() {
@@ -21,11 +21,14 @@ public class Pila {
             deck.add(carta);
         }
     }
-    public Object get(){
-        int last = deck.getSize();
+    public T get(){
+        int last = deck.getSize()-1;
         Object card = deck.getForIndex(last);
         deck.deletePila();
-        return card;
+        return (T) card;
+    }
+    public boolean isEmpty() {
+        return deck.isEmpty();
     }
 
 }

@@ -1,18 +1,25 @@
 package interfaz.proyecto;
 
+import clases.Cartas;
 import clases.Jugadores;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import static java.lang.Thread.sleep;
 
 public class Ventana extends JPanel {
-    JPanel PanelLucha,panelSuperior;
-    public JButton Carta1,Carta2,Carta3,Carta4;
+    JPanel PanelLucha,panelSuperior,panelUsuario;
+    public JButton Carta1,Carta2,Carta3,Carta4,Movimientos;
     public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4;
     private static Ventana Instancia = null;
     public int NumeroCartamuestra =0;
+    public Boolean Movimientrosabierto = true;
 
     JFrame frame = new JFrame("Monster TECG");
+    JFrame framemovimientos = new JFrame("Movimientos");
 
     private Ventana() {
 
@@ -57,11 +64,25 @@ public class Ventana extends JPanel {
         frame.add(PanelLucha, luchaDimension);
     }
         public void panelUsuario(){
-            JPanel panelUsuario = new JPanel();
+            panelUsuario = new JPanel();
             panelUsuario.setLayout(new GridBagLayout());
             ImagenFondo ImagenDeck = new ImagenFondo("imagenes/Revez carta.jpg",false);
             panelUsuario.add(ImagenDeck,dimensiones(0, 0, 1, 1, 1.0, 1.0));
             JButton deck = new JButton("Recoger");
+            deck.addActionListener(ex -> {
+                Jugadores Usuario = Jugadores.getInstance("Usuario");
+                Cartas nueva = Usuario.deck.get();
+                Usuario.Mano.add(nueva);
+                if(Usuario.deck.isEmpty()){
+                    deck.setEnabled(false);
+                    ImagenDeck.imagen = "imagenes/vacio.jpg";
+                    ImagenDeck.repaint();
+                }
+                if (Usuario.Mano.getSize() >= 10){
+                    deck.setEnabled(false);
+                }
+                Usuario.actualizamano(NumeroCartamuestra);
+            });
             panelUsuario.add(deck,dimensiones(0, 1, 1, 1, 1.0, 0.01));
             JButton rotarizquierda = new JButton("<");
             rotarizquierda.addActionListener(ex -> {
@@ -98,10 +119,15 @@ public class Ventana extends JPanel {
                             bajamana(-250,"Usuario");
                         }
                         Usuario.Mano.borrar(ImagenCarta1.getCarta());
+                        Usuario.Mano.verifica();
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
                         }
                         Usuario.actualizamano(NumeroCartamuestra);
+                        if (Usuario.Mano.getSize() < 10){
+                            deck.setEnabled(true);
+                        }
+                        turno("Enemigo");
                     }).start();
                 }else{
                     avisomana();
@@ -132,10 +158,15 @@ public class Ventana extends JPanel {
                             bajamana(-250,"Usuario");
                         }
                         Usuario.Mano.borrar(ImagenCarta2.getCarta());
+                        Usuario.Mano.verifica();
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
                         }
                         Usuario.actualizamano(NumeroCartamuestra);
+                        if (Usuario.Mano.getSize() < 10){
+                            deck.setEnabled(true);
+                        }
+                        turno("Enemigo");
                     }).start();
                 }else{
                     avisomana();
@@ -164,13 +195,17 @@ public class Ventana extends JPanel {
                         else{
                             bajamana(-250,"Usuario");
                         }
-                        System.out.print(Usuario.getMana());
                         CartaUsuario.imagen = ImagenCarta3.getCarta().getImagen();
                         Usuario.Mano.borrar(ImagenCarta3.getCarta());
+                        Usuario.Mano.verifica();
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
                         }
                         Usuario.actualizamano(NumeroCartamuestra);
+                        if (Usuario.Mano.getSize() < 10){
+                            deck.setEnabled(true);
+                        }
+                        turno("Enemigo");
                     }).start();
                 }else{
                     avisomana();
@@ -201,15 +236,19 @@ public class Ventana extends JPanel {
                             bajamana(-250,"Usuario");
                         }
                         Usuario.Mano.borrar(ImagenCarta4.getCarta());
+                        Usuario.Mano.verifica();
                         if(NumeroCartamuestra >= Usuario.Mano.getSize()){
                             NumeroCartamuestra = 0;
                         }
                         Usuario.actualizamano(NumeroCartamuestra);
+                        if (Usuario.Mano.getSize() < 10){
+                            deck.setEnabled(true);
+                        }
+                        turno("Enemigo");
                     }).start();
                 }else{
                     avisomana();
                 }
-
             });
             panelUsuario.add(Carta4,dimensiones(5, 1, 1, 1, 1.0, 0.01));
             JButton rotarderecha = new JButton(">");
@@ -225,13 +264,54 @@ public class Ventana extends JPanel {
                 }).start();
             });
             panelUsuario.add(rotarderecha,dimensiones(6, 0, 1, 2, 1.0, 1.0));
-            JButton Movimientos = new JButton("Movimientos");
+            Movimientos = new JButton("Movimientos");
+            Movimientos.addActionListener(ex -> {
+                framemovimientos(Movimientrosabierto);
+            });
             panelUsuario.add(Movimientos,dimensiones(7, 0, 1, 2, 1.0, 1.0));
             GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 2, 1.0, 0.3);
             frame.add(panelUsuario,usuarioDimension);
         }
-
-
+    public void framemovimientos(boolean Movimientrosabierto){
+        Movimientos.setEnabled(false);
+        if (Movimientrosabierto) {
+            framemovimientos.setLayout(new GridBagLayout());
+            JButton Anterior = new JButton("Anterior");
+            JButton Siguiente = new JButton("Siguiente");
+            JTextArea Detalles = new JTextArea();
+            Detalles.setEnabled(false);
+            framemovimientos.add(Detalles, dimensiones(0, 1, 1, 1, 1.0, 1.0));
+            framemovimientos.add(Anterior, dimensiones(0, 0, 1, 1, 1.0, 0.3));
+            framemovimientos.add(Siguiente, dimensiones(0, 2, 1, 1, 1.0, 0.3));
+            framemovimientos.setSize(200, 300);
+        }
+        this.Movimientrosabierto = false;
+        framemovimientos.setVisible(true);
+        framemovimientos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        framemovimientos.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                framemovimientos.setVisible(false);
+                Movimientos.setEnabled(true);
+            }
+        });
+    }
+    public void turno(String quien){
+        if (quien == "Enemigo"){
+            frame.remove(panelUsuario);
+            frame.repaint();
+            try {
+                sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            turno("enemigo");
+        }
+        else{
+            frame.add(panelUsuario);
+            frame.repaint();
+        }
+    }
     public void PanelSuperior(){
         panelSuperior = new ImagenFondo("imagenes/fondo superior.jpg",false);
         panelSuperior.setLayout(new GridBagLayout());
@@ -250,66 +330,109 @@ public class Ventana extends JPanel {
         new Thread(() -> {
             Jugadores recibio = Jugadores.getInstance("Usuario");
             ImagenFondo interfaz = this.manausuario;
-            if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
-                interfaz.imagen = "imagenes/mana 900 aviso.jpg";
+            if (recibio.getMana() <= 1000 && recibio.getMana() > 950) {
+                interfaz.imagen = "imagenes/mana 1000 aviso.jpg";
                 interfaz.repaint();
-            }
-            else{
-                if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
-                    interfaz.imagen = "imagenes/mana 800 aviso.jpg";
+            } else {
+                if (recibio.getMana() <= 950 && recibio.getMana() > 900) {
+                    interfaz.imagen = "imagenes/mana 950 aviso.jpg";
                     interfaz.repaint();
-                }
-                else {
-                    if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
-                        interfaz.imagen = "imagenes/mana 700 aviso.jpg";
+                } else {
+                    if (recibio.getMana() <= 900 && recibio.getMana() > 850) {
+                        interfaz.imagen = "imagenes/mana 900 aviso.jpg";
                         interfaz.repaint();
-                    }
-                    else {
-                        if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
-                            interfaz.imagen = "imagenes/mana 600 aviso.jpg";
+                    } else {
+                        if (recibio.getMana() <= 850 && recibio.getMana() > 800) {
+                            interfaz.imagen = "imagenes/mana 850 aviso.jpg";
                             interfaz.repaint();
-                        }
-                        else {
-                            if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
-                                interfaz.imagen = "imagenes/mana 500 aviso.jpg";
+                        } else {
+                            if (recibio.getMana() <= 800 && recibio.getMana() > 750) {
+                                interfaz.imagen = "imagenes/mana 800 aviso.jpg";
                                 interfaz.repaint();
-                            }
-                            else {
-                                if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
-                                    interfaz.imagen = "imagenes/mana 400 aviso.jpg";
+                            } else {
+                                if (recibio.getMana() <= 750 && recibio.getMana() > 700) {
+                                    interfaz.imagen = "imagenes/mana 750 aviso.jpg";
                                     interfaz.repaint();
-                                }
-                                else {
-                                    if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
-                                        interfaz.imagen = "imagenes/mana 300 aviso.jpg";
+                                } else {
+                                    if (recibio.getMana() <= 700 && recibio.getMana() > 650) {
+                                        interfaz.imagen = "imagenes/mana 700 aviso.jpg";
                                         interfaz.repaint();
-                                    }
-                                    else {
-                                        if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
-                                            interfaz.imagen = "imagenes/mana 200 aviso.jpg";
+                                    } else {
+                                        if (recibio.getMana() <= 650 && recibio.getMana() > 600) {
+                                            interfaz.imagen = "imagenes/mana 650 aviso.jpg";
                                             interfaz.repaint();
-                                        }
-                                        else {
-                                            if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
-                                                interfaz.imagen = "imagenes/mana 100 aviso.jpg";
+                                        } else {
+                                            if (recibio.getMana() <= 600 && recibio.getMana() > 550) {
+                                                interfaz.imagen = "imagenes/mana 600 aviso.jpg";
                                                 interfaz.repaint();
-                                            }
-                                            else {
-                                                if (recibio.getMana() <= 0) {
-                                                    interfaz.imagen = "imagenes/mana 0 aviso.jpg";
+                                            } else {
+                                                if (recibio.getMana() <= 550 && recibio.getMana() > 500) {
+                                                    interfaz.imagen = "imagenes/mana 550 aviso.jpg";
                                                     interfaz.repaint();
+                                                } else {
+                                                    if (recibio.getMana() <= 500 && recibio.getMana() > 450) {
+                                                        interfaz.imagen = "imagenes/mana 500 aviso.jpg";
+                                                        interfaz.repaint();
+                                                    } else {
+                                                        if (recibio.getMana() <= 450 && recibio.getMana() > 400) {
+                                                            interfaz.imagen = "imagenes/mana 450 aviso.jpg";
+                                                            interfaz.repaint();
+                                                        } else {
+                                                            if (recibio.getMana() <= 400 && recibio.getMana() > 350) {
+                                                                interfaz.imagen = "imagenes/mana 400 aviso.jpg";
+                                                                interfaz.repaint();
+                                                            } else {
+                                                                if (recibio.getMana() <= 350 && recibio.getMana() > 300) {
+                                                                    interfaz.imagen = "imagenes/mana 350 aviso.jpg";
+                                                                    interfaz.repaint();
+                                                                } else {
+                                                                    if (recibio.getMana() <= 300 && recibio.getMana() > 250) {
+                                                                        interfaz.imagen = "imagenes/mana 300 aviso.jpg";
+                                                                        interfaz.repaint();
+                                                                    } else {
+                                                                        if (recibio.getMana() <= 250 && recibio.getMana() > 200) {
+                                                                            interfaz.imagen = "imagenes/mana 250 aviso.jpg";
+                                                                            interfaz.repaint();
+                                                                        } else {
+                                                                            if (recibio.getMana() <= 200 && recibio.getMana() > 150) {
+                                                                                interfaz.imagen = "imagenes/mana 200 aviso.jpg";
+                                                                                interfaz.repaint();
+                                                                            } else {
+                                                                                if (recibio.getMana() <= 150 && recibio.getMana() > 100) {
+                                                                                    interfaz.imagen = "imagenes/mana 150 aviso.jpg";
+                                                                                    interfaz.repaint();
+                                                                                } else {
+                                                                                    if (recibio.getMana() <= 100 && recibio.getMana() > 50) {
+                                                                                        interfaz.imagen = "imagenes/mana 100 aviso.jpg";
+                                                                                        interfaz.repaint();
+                                                                                    } else {
+                                                                                        if (recibio.getMana() <= 50 && recibio.getMana() > 0) {
+                                                                                            interfaz.imagen = "imagenes/mana 40 aviso.jpg";
+                                                                                            interfaz.repaint();
+                                                                                        } else {
+                                                                                            if (recibio.getMana() <= 0) {
+                                                                                                interfaz.imagen = "imagenes/mana  aviso.jpg";
+                                                                                                interfaz.repaint();
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
+                            }}}}
             }
             try {
-                Thread.sleep(300);
+                sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -412,49 +535,92 @@ public class Ventana extends JPanel {
             interfaz = this.manausuario;
         }
         recibio.gasto(gasto);
-        if (recibio.getMana() <= 1000 && recibio.getMana() > 900) {
+        if (recibio.getMana() <= 1000 && recibio.getMana() > 950) {
             interfaz.imagen = "imagenes/mana 1000.jpg";
             interfaz.repaint();
         } else {
-            if (recibio.getMana() <= 900 && recibio.getMana() > 800) {
-                interfaz.imagen = "imagenes/mana 900.jpg";
+            if (recibio.getMana() <= 950 && recibio.getMana() > 900) {
+                interfaz.imagen = "imagenes/mana 950.jpg";
                 interfaz.repaint();
             } else {
-                if (recibio.getMana() <= 800 && recibio.getMana() > 700) {
-                    interfaz.imagen = "imagenes/mana 800.jpg";
+                if (recibio.getMana() <= 900 && recibio.getMana() > 850) {
+                    interfaz.imagen = "imagenes/mana 900.jpg";
                     interfaz.repaint();
                 } else {
-                    if (recibio.getMana() <= 700 && recibio.getMana() > 600) {
-                        interfaz.imagen = "imagenes/mana 700.jpg";
+                    if (recibio.getMana() <= 850 && recibio.getMana() > 800) {
+                        interfaz.imagen = "imagenes/mana 850.jpg";
                         interfaz.repaint();
                     } else {
-                        if (recibio.getMana() <= 600 && recibio.getMana() > 500) {
-                            interfaz.imagen = "imagenes/mana 600.jpg";
+                        if (recibio.getMana() <= 800 && recibio.getMana() > 750) {
+                            interfaz.imagen = "imagenes/mana 800.jpg";
                             interfaz.repaint();
                         } else {
-                            if (recibio.getMana() <= 500 && recibio.getMana() > 400) {
-                                interfaz.imagen = "imagenes/mana 500.jpg";
+                            if (recibio.getMana() <= 750 && recibio.getMana() > 700) {
+                                interfaz.imagen = "imagenes/mana 750.jpg";
                                 interfaz.repaint();
                             } else {
-                                if (recibio.getMana() <= 400 && recibio.getMana() > 300) {
-                                    interfaz.imagen = "imagenes/mana 400.jpg";
+                                if (recibio.getMana() <= 700 && recibio.getMana() > 650) {
+                                    interfaz.imagen = "imagenes/mana 700.jpg";
                                     interfaz.repaint();
                                 } else {
-                                    if (recibio.getMana() <= 300 && recibio.getMana() > 200) {
-                                        interfaz.imagen = "imagenes/mana 300.jpg";
+                                    if (recibio.getMana() <= 650 && recibio.getMana() > 600) {
+                                        interfaz.imagen = "imagenes/mana 650.jpg";
                                         interfaz.repaint();
                                     } else {
-                                        if (recibio.getMana() <= 200 && recibio.getMana() > 100) {
-                                            interfaz.imagen = "imagenes/mana 200.jpg";
+                                    if (recibio.getMana() <= 600 && recibio.getMana() > 550) {
+                                        interfaz.imagen = "imagenes/mana 600.jpg";
+                                        interfaz.repaint();
+                                    } else {
+                                        if (recibio.getMana() <= 550 && recibio.getMana() > 500) {
+                                            interfaz.imagen = "imagenes/mana 550.jpg";
                                             interfaz.repaint();
                                         } else {
-                                            if (recibio.getMana() <= 100 && recibio.getMana() > 0) {
-                                                interfaz.imagen = "imagenes/mana 100.jpg";
+                                        if (recibio.getMana() <= 500 && recibio.getMana() > 450) {
+                                            interfaz.imagen = "imagenes/mana 500.jpg";
+                                            interfaz.repaint();
+                                        } else {
+                                            if (recibio.getMana() <= 450 && recibio.getMana() > 400) {
+                                                interfaz.imagen = "imagenes/mana 450.jpg";
                                                 interfaz.repaint();
                                             } else {
-                                                if (recibio.getMana() <= 0) {
-                                                    interfaz.imagen = "imagenes/mana 0.jpg";
+                                            if (recibio.getMana() <= 400 && recibio.getMana() > 350) {
+                                                interfaz.imagen = "imagenes/mana 400.jpg";
+                                                interfaz.repaint();
+                                            } else {
+                                                if (recibio.getMana() <= 350 && recibio.getMana() > 300) {
+                                                    interfaz.imagen = "imagenes/mana 350.jpg";
                                                     interfaz.repaint();
+                                                } else {
+                                                if (recibio.getMana() <= 300 && recibio.getMana() > 250) {
+                                                    interfaz.imagen = "imagenes/mana 300.jpg";
+                                                    interfaz.repaint();
+                                                } else {
+                                                    if (recibio.getMana() <= 250 && recibio.getMana() > 200) {
+                                                        interfaz.imagen = "imagenes/mana 250.jpg";
+                                                        interfaz.repaint();
+                                                    } else {
+                                                    if (recibio.getMana() <= 200 && recibio.getMana() > 150) {
+                                                        interfaz.imagen = "imagenes/mana 200.jpg";
+                                                        interfaz.repaint();
+                                                    } else {
+                                                        if (recibio.getMana() <= 150 && recibio.getMana() > 100) {
+                                                            interfaz.imagen = "imagenes/mana 150.jpg";
+                                                            interfaz.repaint();
+                                                        } else {
+                                                        if (recibio.getMana() <= 100 && recibio.getMana() > 50) {
+                                                            interfaz.imagen = "imagenes/mana 100.jpg";
+                                                            interfaz.repaint();
+                                                        } else {
+                                                            if (recibio.getMana() <= 50 && recibio.getMana() > 0) {
+                                                                interfaz.imagen = "imagenes/mana 40.jpg";
+                                                                interfaz.repaint();
+                                                            } else {
+                                                            if (recibio.getMana() <= 0) {
+                                                                interfaz.imagen = "imagenes/mana 0.jpg";
+                                                                interfaz.repaint();
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -468,3 +634,4 @@ public class Ventana extends JPanel {
         }
     }
 }
+}}}}}}}

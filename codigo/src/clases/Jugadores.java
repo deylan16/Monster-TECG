@@ -8,6 +8,7 @@ public class Jugadores {
     private static Jugadores Enemigo = null;
     private int vida = 1000,mana = 1000;
     public ListaCircular<Cartas> Mano = new ListaCircular<Cartas>();
+    public Pila<Cartas> deck = new Pila<Cartas>();
 
 
     private Jugadores() {
@@ -46,17 +47,30 @@ public class Jugadores {
         this.mana -= gasto;
     }
     public void creaMano(){
-        Mano.add(Cartas.carta15);
-        Mano.add(Cartas.carta7);
-        Mano.add(Cartas.carta20);
-        Mano.add(Cartas.carta9);
-        Mano.add(Cartas.carta10);
-        Mano.add(Cartas.carta11);
-        Mano.add(Cartas.carta2);
-        Mano.add(Cartas.carta3);
-        Mano.add(Cartas.carta4);
-        Mano.add(Cartas.carta5);
-        Mano.add(Cartas.cartaVacia);
+        Cartas.crealistas();
+        Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+        deck.Add(Cartas.Todas.getForIndex((int) (Math.random()*20+1)));
+
+
+
 
         actualizamano(0);
     }
