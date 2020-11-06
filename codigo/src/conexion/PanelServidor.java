@@ -27,7 +27,7 @@ public class PanelServidor extends javax.swing.JFrame {
         t.start();
         this.PORT = servidor.GetPort();
         this.IP = servidor.GetIp();
-        this.jTextArea1.append("Su ip es: " + IP + "y su puerto es: " + PORT);
+        this.jTextArea1.append("Su ip es: " + IP + "  y su puerto es: " + PORT);
     }
 
     /**

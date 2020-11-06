@@ -191,11 +191,13 @@ public class Ventana extends JPanel {
             Carta2 = new JButton("Usar");
             Carta2.addActionListener(ex -> {
                 ObjectMapper mapper = new ObjectMapper();
+                String mensaje;
                 try {
-                    System.out.println("Default JSON String:"
-                        + mapper.writeValueAsString(ImagenCarta2.getCarta()));
-                } catch (JsonProcessingException exx) {
-                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                    mensaje = mapper.writeValueAsString(ImagenCarta2.getCarta());
+                    System.out.println("Default JSON String: " + mensaje);
+                    PanelCliente.SetMensaje(mensaje);
+                } catch (JsonProcessingException ex1) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
@@ -275,11 +277,13 @@ public class Ventana extends JPanel {
             Carta3 = new JButton("Usar");
             Carta3.addActionListener(ex -> {
                 ObjectMapper mapper = new ObjectMapper();
+                String mensaje;
                 try {
-                    System.out.println("Default JSON String:"
-                        + mapper.writeValueAsString(ImagenCarta3.getCarta()));
-                } catch (JsonProcessingException exx) {
-                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                    mensaje = mapper.writeValueAsString(ImagenCarta3.getCarta());
+                    System.out.println("Default JSON String: " + mensaje);
+                    PanelCliente.SetMensaje(mensaje);
+                } catch (JsonProcessingException ex1) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
@@ -358,13 +362,13 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta4,dimensiones(5, 0, 1, 1, 1.0, 1.0));
             Carta4 = new JButton("Usar");
             Carta4.addActionListener(ex -> {            
+                ObjectMapper mapper = new ObjectMapper();
+                String mensaje;
                 try {
-                    ObjectMapper mapper = new ObjectMapper();
-                    String json = mapper.writeValueAsString (ImagenCarta4.getCarta());
-                    System.out.println(json);
-                } catch (JsonProcessingException exx) {
-                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
-                } catch (Exception ex1) {
+                    mensaje = mapper.writeValueAsString(ImagenCarta4.getCarta());
+                    System.out.println("Default JSON String: " + mensaje);
+                    PanelCliente.SetMensaje(mensaje);
+                } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 Carta4.setEnabled(false);
