@@ -5,16 +5,20 @@
  */
 package conexion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author johnn
  */
-public class PanelServidor extends javax.swing.JFrame {
-
+public class PanelCliente extends javax.swing.JFrame {
+    private static String ip;
+    private static int puerto;
     /**
      * Creates new form PanelServidor
      */
-    public PanelServidor() {
+    public PanelCliente() {
         initComponents();
     }
 
@@ -98,12 +102,23 @@ public class PanelServidor extends javax.swing.JFrame {
 
     private void ConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConectarActionPerformed
         // TODO add your handling code here:
-        String ip = this.IP.getText();
+        ip = this.IP.getText();
         String port = this.PUERTO.getText();
-        int puerto = Integer.parseInt(port);
-        Cliente CjugadorI = new Cliente(ip, puerto);
-        Thread tCI = new Thread(CjugadorI);
-        tCI.start();
+        puerto = Integer.parseInt(port);
+        
+        System.out.println("Conectando servidor de cliente");
+        Servidor SjugadorI = new Servidor();
+        try {
+            SjugadorI.setIP();
+        } catch (Exception ex) {
+            Logger.getLogger(PanelCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        SjugadorI.PUERTO = puerto + 1;
+        Thread tSI = new Thread(SjugadorI);
+        tSI.start();
+        
+        Conexion.setChost(ip, puerto);
+        Conexion.Cinvi();
     }//GEN-LAST:event_ConectarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -113,4 +128,10 @@ public class PanelServidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    public static void iniciar() throws Exception{
+        Conexion panel = new Conexion();
+    }
+    
 }
+

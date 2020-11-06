@@ -20,13 +20,20 @@ public class Cliente implements Runnable {
     private final String HOST;
     private Socket CLIENTE;
     private DataOutputStream SALIDA;
+    private int accion = 1;
 
     public Cliente(String host, int puerto) {
         this.PUERTO = puerto;
         this.HOST = host;
     }    
-    public void envMen() throws IOException{
-        SALIDA.writeInt(12);
+    public void envMen() throws IOException, Exception{
+        if (accion == 1){
+            accion = 2;
+            PanelCliente.iniciar();
+        }
+        else{
+         //SALIDA.writeInt(12);   
+        }
     }
     public void closeC() throws IOException{
         CLIENTE.close();
@@ -42,11 +49,14 @@ public class Cliente implements Runnable {
         System.out.println("Cliente: Conectando al servidor");
         try {
             this.CLIENTE = new Socket(HOST, PUERTO);
-            System.out.println("Cliente: Conexion completa");
+            System.out.println("Cliente: Conectado");
             SALIDA = new DataOutputStream(CLIENTE.getOutputStream()); //Se crea carril de salida de datos
+            this.envMen();
         }       
         catch (IOException ex) {
             System.out.println("Hubo un error, cliente");
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

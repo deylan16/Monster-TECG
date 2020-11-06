@@ -90,7 +90,7 @@ public class PanelConexion extends javax.swing.JFrame {
 
     private void SERVIDORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SERVIDORActionPerformed
         // TODO add your handling code here:
-        PanelServidor servidor = new PanelServidor();
+        PanelCliente servidor = new PanelCliente();
         servidor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_SERVIDORActionPerformed

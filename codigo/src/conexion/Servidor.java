@@ -21,9 +21,11 @@ import java.util.logging.Logger;
 public class Servidor extends Observable implements Runnable{
     public int PUERTO;
     public String HOST;
+    public String CLIP;
     private Socket CLIENTE;
     private DataInputStream ENTRADA;
     private ServerSocket SERVIDOR;
+    private int action = 1;
     
     public void setIP() throws Exception{
         //Para obtener la IP de la computadora
@@ -37,10 +39,18 @@ public class Servidor extends Observable implements Runnable{
         int port = (int) (Math.random() * (max - min + 1) + min);
         this.PUERTO = port;
     }
-    public void recMen() throws IOException{  //Lee los mensajes que vienen en entrada y resetea para nueva entrada
-        int Mensaje = ENTRADA.readInt();
-        System.out.println(Mensaje);
-        ENTRADA.reset();
+    public void recMen() throws IOException, Exception{  //Lee los mensajes que vienen en entrada y resetea para nueva entrada
+        if (action == 1) {
+            action = 2;
+            this.CLIP = this.CLIENTE.getLocalAddress().getHostAddress();
+            PanelHost.print("Servidor: Jugador conectado \n");
+            PanelHost.iniciar();
+        }
+        else {
+            //int Mensaje = ENTRADA.readInt();
+            //System.out.println(Mensaje);
+            //ENTRADA.reset();   
+        }
     }
     public void closeC() throws IOException{
         CLIENTE.close();
@@ -50,17 +60,23 @@ public class Servidor extends Observable implements Runnable{
     @Override
     public void run() {       
         try{
+            System.out.println("Se creo un servidor");
+            System.out.println(PUERTO);
+            System.out.println(InetAddress.getLocalHost());
             this.SERVIDOR = new ServerSocket(PUERTO, 1, InetAddress.getLocalHost());
             PanelHost.print("Se creo un servidor \n");
             PanelHost.print(HOST + "  en el puerto: " + PUERTO + "\n");
             while(true){
                 this.CLIENTE = SERVIDOR.accept();
-                PanelHost.print("Servidor: Jugador conectado \n");
+                System.out.println("Servidor: Se conecto alguien");
                 ENTRADA = new DataInputStream(CLIENTE.getInputStream()); //Carril de entrada para los datos
+                this.recMen();
             }        
         }
         catch (IOException ex) {
             System.out.println("Hubo un error, servidor");
+        } catch (Exception ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

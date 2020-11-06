@@ -13,14 +13,16 @@ import java.util.logging.Logger;
  * @author johnn
  */
 public class PanelHost extends javax.swing.JFrame{
-
+    public static int port;
+    public static String ip;
+    private static Servidor SjugadorH;
     /**
      * Creates new form PanelHost
      */
     public PanelHost() {
         initComponents();
         PanelHost.print("Vamos a iniciar una conexion \n");
-        Servidor SjugadorH = new Servidor();
+        SjugadorH = new Servidor();
         try {
             SjugadorH.setIP();
         } catch (Exception ex) {
@@ -28,7 +30,7 @@ public class PanelHost extends javax.swing.JFrame{
         }
         SjugadorH.setPORT();
         Thread tSH = new Thread(SjugadorH);
-        tSH.start();   
+        tSH.start();
     }
 
     /**
@@ -76,5 +78,13 @@ public class PanelHost extends javax.swing.JFrame{
 
     public static void print(String texto){
         PanelHost.Texto.append(texto);
+    }
+    public static void iniciar() throws Exception{
+        //this.setVisible(false);
+        port = SjugadorH.PUERTO + 1;
+        ip = SjugadorH.CLIP;
+        Conexion panel = new Conexion();
+        Conexion.setCinvi(ip, port);
+        Conexion.Chost();
     }
 }

@@ -5,6 +5,9 @@
  */
 package conexion;
 
+import clases.Jugadores;
+import interfaz.proyecto.Animacion;
+import interfaz.proyecto.Ventana;
 import java.net.InetAddress;
 import javax.swing.JOptionPane;
 
@@ -13,52 +16,57 @@ import javax.swing.JOptionPane;
  * @author johnn
  */
 public final class Conexion {
-    Thread tCI;
-    Thread tCH;
-    public boolean enlazado;
-    private int puerto;
-    private static String HOST;
-    private final int seleccion = 2; // (1) para ser host
+    private static Cliente CjugadorH;
+    private static String HIP;
+    private static int HPU;
+    private static Cliente CjugadorI;
+    private static String IIP;
+    private static int IPU;
     
     public Conexion() throws Exception {
-        if (seleccion == 1) {
-        System.out.println("Vamos a iniciar una conexion");
-        Servidor SjugadorH = new Servidor();
-        SjugadorH.setIP();
-        SjugadorH.setPORT();
-        Thread tSH = new Thread(SjugadorH);
-        tSH.start();   
-        }
-        
-        else {
-        System.out.println("Creando un cliente...");    
-        String HOST = JOptionPane.showInputDialog(null, "Ingrese IP del Servidor");
-        String PORT = JOptionPane.showInputDialog(null, "Ingrese el puerto a conectar");
-        puerto = Integer.parseInt(PORT);
-        Cliente CjugadorI = new Cliente(HOST, puerto);
-        tCI = new Thread(CjugadorI);
-        tCI.start();
-        
-        System.out.println("Creando un servidor a su ip...");
-        Servidor SjugadorI = new Servidor();
-        SjugadorI.setIP();
-        SjugadorI.PUERTO = puerto + 1;
-        Thread tSI = new Thread(SjugadorI);
-        tSI.start();
-        
-        this.HOST = CjugadorI.getIP();
-        CH();
-        }
+        Ventana inicia = Ventana.getInstance();
+        Animacion.CreaListas();
+        inicia.abrirVentana();
+        Jugadores Usuiario = Jugadores.getInstance("Usuario");
+        Usuiario.creaMano();
+        Jugadores Enemigo = Jugadores.getInstance("Enemigo");
     }
 
     /**
      *
-     * @param HOST
+     * @param ip
+     * @param puerto
      */
-    public void CH(){
-        System.out.println("Creando el otro cliente");
-        Cliente CjugadorH = new Cliente(HOST, puerto + 1);
-        tCH = new Thread(CjugadorH);
-        tCH.start();
+    public static void setChost(String ip, int puerto){
+        System.out.println("hola1");
+        Conexion.HIP = ip;
+        Conexion.HPU = puerto;
+    }
+    public static void Chost(){
+        System.out.println("hola2");
+        System.out.println(IIP + " PUTA " + IPU);
+        //CjugadorH = new Cliente(IIP, IPU);
+        //Thread tCH = new Thread(CjugadorH);
+        //tCH.start();
+    }
+    public void EChost(Object accion){
+        //CjugadorH.envMen(accion);
+    }
+    /**
+     *
+     * @param ip
+     * @param puerto
+     */
+    public static void setCinvi(String ip, int puerto){
+        System.out.println("hola3");
+        Conexion.IIP = ip;
+        Conexion.IPU = puerto;
+    }
+    public static void Cinvi(){
+        System.out.println("hola4");
+        System.out.println(HIP + " PUTA " + HPU);
+        CjugadorI = new Cliente(HIP, HPU);
+        Thread tCI = new Thread(CjugadorI);
+        tCI.start();
     }
 }
