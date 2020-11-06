@@ -5,6 +5,7 @@
  */
 package conexion;
 
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,15 +91,25 @@ public class PanelConexion extends javax.swing.JFrame {
 
     private void SERVIDORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SERVIDORActionPerformed
         // TODO add your handling code here:
-        PanelCliente servidor = new PanelCliente();
-        servidor.setVisible(true);
+        PanelCliente servidor;
+        try {
+            servidor = new PanelCliente();
+            servidor.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelConexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_SERVIDORActionPerformed
 
     private void HOSTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOSTActionPerformed
         // TODO add your handling code here:
-        PanelHost host = new PanelHost();
-        host.setVisible(true);
+        PanelServidor host;
+        try {
+            host = new PanelServidor();
+            host.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelConexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_HOSTActionPerformed
 

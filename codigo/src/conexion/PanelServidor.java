@@ -11,14 +11,14 @@ import java.net.UnknownHostException;
  *
  * @author johnn
  */
-public class PanelCliente extends javax.swing.JFrame {
+public class PanelServidor extends javax.swing.JFrame {
     private int PORT;
     private String IP;
     private String MENSAJE;
     /**
      * Creates new form PanelCliente
      */
-    public PanelCliente() throws UnknownHostException {
+    public PanelServidor() throws UnknownHostException {
         initComponents();
         this.Enviar.setEnabled(false);
         Servidor servidor = new Servidor();

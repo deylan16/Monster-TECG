@@ -2,6 +2,9 @@ package interfaz.proyecto;
 
 import clases.Cartas;
 import clases.Jugadores;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +12,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Ventana extends JPanel {
     JPanel PanelLucha,panelSuperior,panelUsuario;
     public JButton Carta1,Carta2,Carta3,Carta4,Movimientos,paso;
     public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4,CartaDerecha;
     private static Ventana Instancia = null;
-    public int NumeroCartamuestra =0,indicemovimiento = 0;
+    public int NumeroCartamuestra = 0,indicemovimiento = 0;
     public Boolean Movimientrosabierto = true,Bloqueo = false;
     public int cuenta = 0;
     JFrame frame = new JFrame("Monster TECG");
@@ -99,6 +104,13 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta1,dimensiones(2, 0, 1, 1, 1.0, 1.0));
             Carta1 = new JButton("Usar");
             Carta1.addActionListener(ex -> {
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    System.out.println("Default JSON String:"
+                        + mapper.writeValueAsString(ImagenCarta1.getCarta()));
+                } catch (JsonProcessingException exx) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
                 Carta2.setEnabled(false);
@@ -175,6 +187,13 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta2,dimensiones(3, 0, 1, 1, 1.0, 1.0));
             Carta2 = new JButton("Usar");
             Carta2.addActionListener(ex -> {
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    System.out.println("Default JSON String:"
+                        + mapper.writeValueAsString(ImagenCarta2.getCarta()));
+                } catch (JsonProcessingException exx) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
                 Carta2.setEnabled(false);
@@ -252,6 +271,13 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta3,dimensiones(4, 0, 1, 1, 1.0, 1.0));
             Carta3 = new JButton("Usar");
             Carta3.addActionListener(ex -> {
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    System.out.println("Default JSON String:"
+                        + mapper.writeValueAsString(ImagenCarta3.getCarta()));
+                } catch (JsonProcessingException exx) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
                 Carta2.setEnabled(false);
@@ -328,7 +354,16 @@ public class Ventana extends JPanel {
             ImagenCarta4 = new ImagenFondo("imagenes/vacio.jpg",false);
             panelUsuario.add(ImagenCarta4,dimensiones(5, 0, 1, 1, 1.0, 1.0));
             Carta4 = new JButton("Usar");
-            Carta4.addActionListener(ex -> {
+            Carta4.addActionListener(ex -> {            
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    String json = mapper.writeValueAsString (ImagenCarta4.getCarta());
+                    System.out.println(json);
+                } catch (JsonProcessingException exx) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                } catch (Exception ex1) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
+                }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);
                 Carta2.setEnabled(false);

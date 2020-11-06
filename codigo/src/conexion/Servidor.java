@@ -7,81 +7,56 @@ package conexion;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import clases.Analizar;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  *
  * @author johnn
  */
-public class Servidor extends Observable implements Runnable{
-    public int PUERTO;
-    public String HOST;
-    public String CLIP;
-    private Socket CLIENTE;
-    private DataInputStream ENTRADA;
-    private ServerSocket SERVIDOR;
-    private int action = 1;
-
-    public int getPUERTO() {
-        return PUERTO;
-    }
+public class Servidor implements Runnable{
+    private int PUERTO;
+    private String IP;
+    private DataInputStream IN;
     
-    public void setIP() throws Exception{
-        //Para obtener la IP de la computadora
-        InetAddress address = InetAddress.getLocalHost();
-        this.HOST = address.getHostAddress();
+    public Servidor() throws UnknownHostException {
+       InetAddress address = InetAddress.getLocalHost();
+       this.IP = address.getHostAddress();
     }
-    public void setPORT(){
-        //Para generar un puerto aleatorio
+    public void SetPort(){
         int min = 10000;
         int max = 60000;
         int port = (int) (Math.random() * (max - min + 1) + min);
         this.PUERTO = port;
     }
-    public void recMen() throws IOException, Exception{  //Lee los mensajes que vienen en entrada y resetea para nueva entrada
-        if (action == 1) {
-            action = 2;
-            PanelHost.setCLIP(this.CLIENTE.getLocalAddress().getHostAddress(), PUERTO);
-            PanelHost.print("Servidor: Jugador conectado \n", 1);
-            PanelHost.iniciar();
-        }
-        else {
-            int Mensaje = ENTRADA.readInt();
-            System.out.println(Mensaje);
-            ENTRADA.reset();   
-        }
+    public int GetPort(){
+        return PUERTO;
     }
-    public void closeC() throws IOException{
-        CLIENTE.close();
-        SERVIDOR.close();
-        ENTRADA.close();
+    public String GetIp(){
+        return IP;
     }
+    
     @Override
-    public void run() {       
+    public void run() {
         try{
-            System.out.println("Se creo un servidor");
-            this.SERVIDOR = new ServerSocket(PUERTO, 1, InetAddress.getLocalHost());
-            System.out.println(PUERTO + "  " + HOST);
-            PanelHost.print("Se creo un servidor \n", 1);
-            PanelHost.print(HOST + "  en el puerto: " + PUERTO + "\n", 1);
-            while(true){
-                this.CLIENTE = SERVIDOR.accept();
-                System.out.println("Servidor: Se conecto alguien");
-                ENTRADA = new DataInputStream(CLIENTE.getInputStream()); //Carril de entrada para los datos
-                this.recMen();
-            }        
+        ServerSocket servidor = new ServerSocket(PUERTO);
+        Socket cliente;
+        while(true){
+            cliente = servidor.accept();
+            IN = new DataInputStream(cliente.getInputStream());
+            String mensaje = IN.readUTF();
+            Analizar jugada = new Analizar(mensaje);
+            cliente.close();
         }
-        catch (IOException ex) {
-            System.out.println("Hubo un error, servidor");
-        } catch (Exception ex) {
+        
+        } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     
 }

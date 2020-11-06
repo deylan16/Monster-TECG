@@ -15,47 +15,25 @@ import java.util.logging.Logger;
  *
  * @author johnn
  */
-public class Cliente implements Runnable {
-    private final int PUERTO;
-    private final String HOST;
-    private Socket CLIENTE;
-    private DataOutputStream SALIDA;
-    private int accion = 1;
+public class Cliente implements Runnable{
+    private int PUERTO;
+    private String HOST;
+    private String MENSAJE;
+    private DataOutputStream OUT;
 
-    public Cliente(String host, int puerto) {
+    public Cliente(int puerto, String host, String mensaje){
         this.PUERTO = puerto;
         this.HOST = host;
-    }    
-    public void envMen(Object accionn) throws IOException, Exception{
-        if (accion == 1){
-            accion = 2;
-            PanelCliente.iniciar();
-        }
-        else{
-            //SALIDA.  
-        }
-    }
-    public void closeC() throws IOException{
-        CLIENTE.close();
-        SALIDA.close();
-    }
-    public String getIP(){
-        String host = CLIENTE.getLocalAddress().toString();
-        String host1 = host.substring(1);
-        return host1;
+        this.MENSAJE = mensaje;
     }
     @Override
     public void run() {
-        System.out.println("Cliente: Conectando al servidor");
         try {
-            this.CLIENTE = new Socket(HOST, PUERTO);
-            System.out.println("Cliente: Conectado");
-            SALIDA = new DataOutputStream(CLIENTE.getOutputStream()); //Se crea carril de salida de datos
-            this.envMen(null);
-        }       
-        catch (IOException ex) {
-            System.out.println("Hubo un error, cliente");
-        } catch (Exception ex) {
+            Socket cliente = new Socket(HOST, PUERTO);
+            this.OUT.writeUTF(MENSAJE);
+            cliente.close();
+            
+        } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
