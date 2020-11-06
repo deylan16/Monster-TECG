@@ -4,7 +4,7 @@ import interfaz.proyecto.Animacion;
 import interfaz.proyecto.Ventana;
 
 public class Main {
-    public int iniciar;
+    public Ventana inicia;
     
     public static void main(String[] args) throws Exception {
         PanelConexion panel = new PanelConexion();

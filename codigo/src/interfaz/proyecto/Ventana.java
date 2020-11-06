@@ -5,6 +5,7 @@ import clases.Jugadores;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.annotation.*;
+import conexion.PanelCliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -105,11 +106,13 @@ public class Ventana extends JPanel {
             Carta1 = new JButton("Usar");
             Carta1.addActionListener(ex -> {
                 ObjectMapper mapper = new ObjectMapper();
+                String mensaje;
                 try {
-                    System.out.println("Default JSON String:"
-                        + mapper.writeValueAsString(ImagenCarta1.getCarta()));
-                } catch (JsonProcessingException exx) {
-                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, exx);
+                    mensaje = mapper.writeValueAsString(ImagenCarta1.getCarta());
+                    System.out.println("Default JSON String: " + mensaje);
+                    PanelCliente.SetMensaje(mensaje);
+                } catch (JsonProcessingException ex1) {
+                    Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 Carta4.setEnabled(false);
                 Carta3.setEnabled(false);

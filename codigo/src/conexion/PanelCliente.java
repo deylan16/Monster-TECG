@@ -12,15 +12,16 @@ import java.net.UnknownHostException;
  * @author johnn
  */
 public class PanelCliente extends javax.swing.JFrame {
-    private int PORT;
-    private String IP;
-    private String MENSAJE;
+    private final int PORT;
+    private final String IP;
+    private static String MENSAJE;
     /**
      * Creates new form PanelCliente
+     * @throws java.net.UnknownHostException
      */
     public PanelCliente() throws UnknownHostException {
         initComponents();
-        this.Enviar.setEnabled(false);
+        PanelCliente.Enviar.setEnabled(false);
         Servidor servidor = new Servidor();
         servidor.SetPort();
         Thread t = new Thread(servidor);
@@ -121,7 +122,7 @@ public class PanelCliente extends javax.swing.JFrame {
             Cliente cliente = new Cliente(enviaje, ip, mensaje);
             Thread t = new Thread(cliente);
             t.start();
-            this.Enviar.setEnabled(false);
+            PanelCliente.Enviar.setEnabled(false);
         }
         catch(NumberFormatException ex){
             
@@ -129,7 +130,7 @@ public class PanelCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_EnviarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Enviar;
+    private static javax.swing.JButton Enviar;
     private javax.swing.JTextField Ip;
     private javax.swing.JTextField Puerto;
     private javax.swing.JLabel jLabel1;
@@ -138,9 +139,9 @@ public class PanelCliente extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
-    public void SetMensaje(String Mensaje){
-        this.MENSAJE = Mensaje;
-        this.Enviar.setEnabled(true);
+    public static void SetMensaje(String Mensaje){
+        PanelCliente.MENSAJE = Mensaje;
+        PanelCliente.Enviar.setEnabled(true);
     }
 }
 

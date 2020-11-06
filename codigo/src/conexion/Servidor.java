@@ -48,6 +48,7 @@ public class Servidor implements Runnable{
         Socket cliente;
         while(true){
             cliente = servidor.accept();
+            System.out.println("Se conecto alguien");
             IN = new DataInputStream(cliente.getInputStream());
             String mensaje = IN.readUTF();
             Analizar jugada = new Analizar(mensaje);
