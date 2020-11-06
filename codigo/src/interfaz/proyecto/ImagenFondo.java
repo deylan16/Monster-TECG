@@ -16,6 +16,9 @@ public class ImagenFondo extends JPanel{
         this.voltear = voltear;
 
     }
+    public void setImagen(String imagen){
+        this.imagen = imagen;
+    }
     public void setCarta(Cartas carta){
         this.carta = carta;
     }
