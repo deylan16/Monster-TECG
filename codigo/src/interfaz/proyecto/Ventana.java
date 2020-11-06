@@ -109,9 +109,10 @@ public class Ventana extends JPanel {
             Carta1 = new JButton("Usar");
             Carta1.addActionListener(ex -> {
                 ObjectMapper mapper = new ObjectMapper();
+                JsonNode json = mapper.valueToTree(ImagenCarta1.getCarta());
                 String mensaje;
                 try {
-                    mensaje = mapper.writeValueAsString(ImagenCarta1.getCarta());
+                    mensaje = mapper.writeValueAsString(json);
                     System.out.println("Default JSON String: " + mensaje);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {

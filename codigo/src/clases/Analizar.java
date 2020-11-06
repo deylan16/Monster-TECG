@@ -19,11 +19,13 @@ public class Analizar {
     Ventana inicia;
 
     public Analizar(String mensaje) throws IOException {
-        System.out.print("Se va a leer la jugada");
-        System.out.print(mensaje);
+        System.out.println("Se va a leer la jugada");
+        System.out.println(mensaje);
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.readValue(mensaje, Cartas.class));
-        Cartas carta = mapper.readValue(mensaje, Cartas.class);
-        inicia.AtaqueEnemigo(carta);
+        JsonNode Nodecarta = mapper.readTree(mensaje);
+        System.out.println(Nodecarta);
+        Cartas carta = mapper.treeToValue(Nodecarta, Cartas.class);
+        System.out.println(carta);
+        //inicia.AtaqueEnemigo(carta);
     }    
 }
