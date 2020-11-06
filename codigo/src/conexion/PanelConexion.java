@@ -95,7 +95,7 @@ public class PanelConexion extends javax.swing.JFrame {
         // TODO add your handling code here:
         PanelCliente servidor;
         Ventana ventana = Ventana.getInstance();
-        ventana.ventanavisible();
+        ventana.ventanavisible(false);
         try {
             servidor = new PanelCliente();
             servidor.setVisible(true);
@@ -108,9 +108,9 @@ public class PanelConexion extends javax.swing.JFrame {
     private void HOSTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOSTActionPerformed
         // TODO add your handling code here:
         Ventana ventana = Ventana.getInstance();
-        ventana.turno("Enemigo");
         PanelCliente host;
-        ventana.ventanavisible();
+        ventana.ventanavisible(true);
+
         try {
             host = new PanelCliente();
             host.setVisible(true);

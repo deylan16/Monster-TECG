@@ -29,7 +29,8 @@ public class Analizar {
         String siguiente = Nodecarta.get("siguiente").asText();
         int cuentapoderzote = Nodecarta.get("cuentapoderzote").intValue();
         String aquienMana = Nodecarta.get("aquienMana").asText();
-        Cartas carta = new Cartas(daño, coste, imagen, nombre, siguiente, cuentapoderzote, aquienMana);
+        String tipo = Nodecarta.get("tipo").asText();
+        Cartas carta = new Cartas(daño, coste, imagen, nombre, siguiente, cuentapoderzote, aquienMana,tipo);
         Ventana ventana = Ventana.getInstance();
         ventana.AtaqueEnemigo(carta);     
     }    

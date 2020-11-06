@@ -120,6 +120,14 @@ public class ListaCircular<T>  {
                     }}
                     }
         }
+        
+
+
+    public void Borra(){
+        this.first = null;
+        this.last = null;
+        size = 0;
+        verifica();}
         //verifica si la lista tiene un valor menor a cuatro, se una en la mano para que simpre tenga cuantro cartas, cuando tiene menos se agrega una carta vacia
     public void verifica() {
         if (getSize() < 4) {
