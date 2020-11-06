@@ -109,10 +109,10 @@ public class PanelConexion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Ventana ventana = Ventana.getInstance();
         ventana.turno("Enemigo");
-        PanelServidor host;
+        PanelCliente host;
         ventana.ventanavisible();
         try {
-            host = new PanelServidor();
+            host = new PanelCliente();
             host.setVisible(true);
         } catch (UnknownHostException ex) {
             Logger.getLogger(PanelConexion.class.getName()).log(Level.SEVERE, null, ex);

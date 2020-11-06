@@ -114,10 +114,6 @@ public class Ventana extends JPanel {
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode json = mapper.valueToTree(ImagenCarta1.getCarta());
                     String mensaje = mapper.writeValueAsString(json);
-                    
-                    System.out.println(ImagenCarta1.getCarta());
-                    System.out.println("Default JSON String: " + mensaje);
-                    System.out.println(json);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
@@ -521,7 +517,7 @@ public class Ventana extends JPanel {
             frame.repaint();
         }
         else{
-            frame.add(panelUsuario);
+            frame.add(panelUsuario, dimensiones(0, 1, 2, 2, 1.0, 0.3));
             frame.repaint();
         }
     }

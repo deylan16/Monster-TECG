@@ -30,7 +30,6 @@ public class Cliente implements Runnable{
     public void run() {
         try {
             Socket cliente = new Socket(HOST, PUERTO);
-            System.out.println(MENSAJE);
             OUT = new DataOutputStream(cliente.getOutputStream());
             this.OUT.writeUTF(MENSAJE);
             cliente.close();
