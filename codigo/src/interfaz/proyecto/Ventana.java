@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
@@ -108,12 +110,14 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta1,dimensiones(2, 0, 1, 1, 1.0, 1.0));
             Carta1 = new JButton("Usar");
             Carta1.addActionListener(ex -> {
-                ObjectMapper mapper = new ObjectMapper();
-                JsonNode json = mapper.valueToTree(ImagenCarta1.getCarta());
-                String mensaje;
                 try {
-                    mensaje = mapper.writeValueAsString(json);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json = mapper.valueToTree(ImagenCarta1.getCarta());
+                    String mensaje = mapper.writeValueAsString(json);
+                    
+                    System.out.println(ImagenCarta1.getCarta());
                     System.out.println("Default JSON String: " + mensaje);
+                    System.out.println(json);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
@@ -194,11 +198,10 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta2,dimensiones(3, 0, 1, 1, 1.0, 1.0));
             Carta2 = new JButton("Usar");
             Carta2.addActionListener(ex -> {
-                ObjectMapper mapper = new ObjectMapper();
-                String mensaje;
                 try {
-                    mensaje = mapper.writeValueAsString(ImagenCarta2.getCarta());
-                    System.out.println("Default JSON String: " + mensaje);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json = mapper.valueToTree(ImagenCarta2.getCarta());
+                    String mensaje = mapper.writeValueAsString(json);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
@@ -280,11 +283,10 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta3,dimensiones(4, 0, 1, 1, 1.0, 1.0));
             Carta3 = new JButton("Usar");
             Carta3.addActionListener(ex -> {
-                ObjectMapper mapper = new ObjectMapper();
-                String mensaje;
                 try {
-                    mensaje = mapper.writeValueAsString(ImagenCarta3.getCarta());
-                    System.out.println("Default JSON String: " + mensaje);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json = mapper.valueToTree(ImagenCarta3.getCarta());
+                    String mensaje = mapper.writeValueAsString(json);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);
@@ -366,11 +368,10 @@ public class Ventana extends JPanel {
             panelUsuario.add(ImagenCarta4,dimensiones(5, 0, 1, 1, 1.0, 1.0));
             Carta4 = new JButton("Usar");
             Carta4.addActionListener(ex -> {            
-                ObjectMapper mapper = new ObjectMapper();
-                String mensaje;
                 try {
-                    mensaje = mapper.writeValueAsString(ImagenCarta4.getCarta());
-                    System.out.println("Default JSON String: " + mensaje);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json = mapper.valueToTree(ImagenCarta4.getCarta());
+                    String mensaje = mapper.writeValueAsString(json);
                     PanelCliente.SetMensaje(mensaje);
                 } catch (JsonProcessingException ex1) {
                     Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex1);

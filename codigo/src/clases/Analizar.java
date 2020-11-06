@@ -19,13 +19,18 @@ public class Analizar {
     Ventana inicia;
 
     public Analizar(String mensaje) throws IOException {
-        System.out.println("Se va a leer la jugada");
-        System.out.println(mensaje);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode Nodecarta = mapper.readTree(mensaje);
-        System.out.println(Nodecarta);
-        Cartas carta = mapper.treeToValue(Nodecarta, Cartas.class);
-        System.out.println(carta);
-        //inicia.AtaqueEnemigo(carta);
+  
+        int daño = Nodecarta.get("daño").intValue();
+        int coste = Nodecarta.get("coste").intValue();
+        String imagen = Nodecarta.get("imagen").asText();
+        String nombre = Nodecarta.get("nombre").asText();
+        String siguiente = Nodecarta.get("siguiente").asText();
+        int cuentapoderzote = Nodecarta.get("cuentapoderzote").intValue();
+        String aquienMana = Nodecarta.get("aquienMana").asText();
+        Cartas carta = new Cartas(daño, coste, imagen, nombre, siguiente, cuentapoderzote, aquienMana);
+        Ventana ventana = Ventana.getInstance();
+        ventana.AtaqueEnemigo(carta);     
     }    
 }
