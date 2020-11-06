@@ -81,9 +81,12 @@ public class PanelHost extends javax.swing.JFrame{
             //PanelHost.Texto.append(texto);
         }
     }
-    public static void setCLIP(String CLIP, int Puer){
+    public static void setCLIP(String CLIP, int Puer) {
         ip = CLIP;
         port = Puer;
+    }
+    public static void print(String texto){
+        //PanelHost.Texto.append(texto);
     }
     public static void iniciar() throws Exception{
         //this.setVisible(false);

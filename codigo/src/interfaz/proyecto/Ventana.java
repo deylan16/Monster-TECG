@@ -12,8 +12,8 @@ import static java.lang.Thread.sleep;
 
 public class Ventana extends JPanel {
     JPanel PanelLucha,panelSuperior,panelUsuario;
-    public JButton Carta1,Carta2,Carta3,Carta4,Movimientos;
-    public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4;
+    public JButton Carta1,Carta2,Carta3,Carta4,Movimientos,paso;
+    public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4,CartaDerecha;
     private static Ventana Instancia = null;
     public int NumeroCartamuestra =0,indicemovimiento = 0;
     public Boolean Movimientrosabierto = true,Bloqueo = false;
@@ -55,7 +55,7 @@ public class Ventana extends JPanel {
         //centro
         PanelLucha.add(new ImagenFondo("imagenes/centro.jpg",false),dimensiones(2, 1, 1, 1, 2.0, 2.0));
         //Carta principal Derecha
-        ImagenFondo CartaDerecha = new ImagenFondo("imagenes/Revez carta.jpg",false);
+        CartaDerecha = new ImagenFondo("imagenes/Revez carta.jpg",false);
         PanelLucha.add(CartaDerecha,dimensiones(3, 1, 1, 1, 0.9, 1.0));
         //esquina inferior derecha
         PanelLucha.add(new ImagenFondo("imagenes/esquina inferior derecha.jpg",false),dimensiones(4, 2, 1, 1, 0.7, 1.7));
@@ -395,6 +395,7 @@ public class Ventana extends JPanel {
                             deck.setEnabled(true);
                         }
 
+
                     }).start();
                 }else{
                     avisomana();
@@ -418,7 +419,12 @@ public class Ventana extends JPanel {
             Movimientos.addActionListener(ex -> {
                 framemovimientos(Movimientrosabierto);
             });
-            panelUsuario.add(Movimientos,dimensiones(7, 0, 1, 2, 1.0, 1.0));
+            panelUsuario.add(Movimientos,dimensiones(7, 0, 1, 1, 1.0, 1.0));
+            paso = new JButton("Paso");
+            paso.addActionListener(ex -> {
+                turno("Enemigo");
+            });
+            panelUsuario.add(paso,dimensiones(7, 1, 1, 1, 1.0, 0.01));
             GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 2, 1.0, 0.3);
             frame.add(panelUsuario,usuarioDimension);
         }
@@ -464,12 +470,6 @@ public class Ventana extends JPanel {
         if (quien == "Enemigo"){
             frame.remove(panelUsuario);
             frame.repaint();
-            try {
-                sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            turno("Usuario");
         }
         else{
             frame.add(panelUsuario);
@@ -603,7 +603,58 @@ public class Ventana extends JPanel {
             bajamana(0,"Usuario");
         }).start();
     }
-
+    public void AtaqueEnemigo(Cartas carta) {
+        Jugadores Enemigo2 = Jugadores.getInstance("Enemigo");
+        new Thread(() -> {
+        try {
+            Animacion.Anima(CartaDerecha);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Jugadores.Movimientos.add("Hecho por: Enemigo" + "\n" + "Nombre:" + carta.getNombre() + "\n" + "Daño:" + carta.getCoste());
+        if (carta.getImagen() == "imagenes/Roboncito.png") {
+            Cartas.accionRoboncito();
+        }
+        if (carta.getCuentapoderzote() != 0) {
+            CartaDerecha.imagen = carta.getImagen();
+            this.cuenta += carta.getCuentapoderzote();
+            turno("Usuario");
+        }
+        if (this.cuenta != 0) {
+            if (carta.getNombre() == "Dragoncito") {
+                Jugadores Enemigo = Jugadores.getInstance("Usuario");
+                bajaVida((int) (Enemigo.getVida() * 0.25), "Usuario");
+            } else {
+                bajaVida(carta.getDaño(), "Usuario");
+            }
+            CartaDerecha.imagen = carta.getImagen();
+            turno("Enemigo");
+            this.cuenta -= 1;
+        } else {
+            if (carta.getNombre() == "Dragoncito") {
+                Jugadores Enemigo = Jugadores.getInstance("Usuario");
+                bajaVida((int) (Enemigo.getVida() * 0.25), "Usuario");
+            } else {
+                bajaVida(carta.getDaño(), "Usuario");
+            }
+            if (carta.getAQuienMana() == "Usuario") {
+                bajamana(carta.getCoste(), "Usuario");
+            } else {
+                if (carta.getAQuienMana() == "bloqueo") {
+                    this.Bloqueo = true;
+                }
+                bajamana(carta.getCoste(), "Enemigo");
+            }
+            CartaDerecha.imagen = carta.getImagen();
+            if (Enemigo2.getMana() > 750) {
+                int a = 1000 - Enemigo2.getMana();
+                bajamana(-a, "Enemigo");
+            } else {
+                bajamana(-250, "Enemigo");
+            }
+            turno("Usuario");
+        }}).start();
+    }
     public void revisa(){
         Jugadores Usuario = Jugadores.getInstance("Usuario");
         Jugadores Enemigo = Jugadores.getInstance("Enemigo");

@@ -60,7 +60,7 @@ public class Jugadores {
     public void creaMano(){
         Movimientos.add("Movimientos");
         Cartas.crealistas();
-        Mano.add(Cartas.cartaInstaKill);
+        Mano.add(Cartas.cartaPoderzote);
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));

@@ -1,4 +1,7 @@
+import clases.Jugadores;
 import conexion.PanelConexion;
+import interfaz.proyecto.Animacion;
+import interfaz.proyecto.Ventana;
 
 public class Main {
     public int iniciar;

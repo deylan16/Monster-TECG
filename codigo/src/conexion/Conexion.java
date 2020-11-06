@@ -28,6 +28,7 @@ public final class Conexion {
         Jugadores Usuiario = Jugadores.getInstance("Usuario");
         Usuiario.creaMano();
         Jugadores Enemigo = Jugadores.getInstance("Enemigo");
+        inicia.revisa();
     }
 
     /**
