@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import interfaz.proyecto.Ventana;
 
+import java.io.IOException;
+
 /**
  *
  * @author johnn
@@ -16,7 +18,7 @@ import interfaz.proyecto.Ventana;
 public class Analizar {
     Ventana inicia;
 
-    public Analizar(String mensaje) throws JsonProcessingException {
+    public Analizar(String mensaje) throws IOException {
         System.out.print("Se va a leer la jugada");
         System.out.print(mensaje);
         ObjectMapper mapper = new ObjectMapper();

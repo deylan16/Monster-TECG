@@ -47,6 +47,7 @@ public class ListaCircular<T>  {
         }
 
     }
+    //retorna solo el valor del nodo
     public T getForIndex(int indice) {
         int i = 0;
         if (this.isEmpty()) {
@@ -68,6 +69,7 @@ public class ListaCircular<T>  {
         }
         return null;
     }
+    //retorna todo el nodo
     public Node<T> getForIndex2(int indice) {
         int i = 0;
         if (this.isEmpty()) {
@@ -118,6 +120,7 @@ public class ListaCircular<T>  {
                     }}
                     }
         }
+        //verifica si la lista tiene un valor menor a cuatro, se una en la mano para que simpre tenga cuantro cartas, cuando tiene menos se agrega una carta vacia
     public void verifica() {
         if (getSize() < 4) {
             Jugadores Usuario = Jugadores.getInstance("Usuario");

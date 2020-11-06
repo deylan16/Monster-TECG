@@ -1,5 +1,5 @@
 package clases;
-
+//clase con las cartas del juego
 public class Cartas {
     static Cartas carta1 = new Cartas(25,75,"imagenes/Bolitas.png","Bolitas","Enemigo",0);
     static Cartas carta2 = new Cartas(25,75,"imagenes/Steve.png","Steve","Enemigo",0);
@@ -41,7 +41,7 @@ public class Cartas {
     String aQuienMana = null;
     static ListaCircular<Cartas> Todas = new ListaCircular<Cartas>();
 
-
+    //metodo constructor para crear una instancia carta
     public Cartas (int daño,int coste,String imagen,String nombre,String siguiente,int cuentapoderzote){
         this.daño = daño;
         this.coste = coste;
@@ -51,6 +51,7 @@ public class Cartas {
         this.Cuentapoderzote = cuentapoderzote;
 
     }
+    //metodo constructor para crear una instancia carta pero preguntando a quien baja mana
     public Cartas (int daño,int coste,String imagen,String nombre,String siguiente,int cuentapoderzote,String aQuienMana){
         this.daño = daño;
         this.coste = coste;
@@ -91,6 +92,7 @@ public class Cartas {
     public String getImagen(){
         return this.imagen;
     }
+    //crea una lista con todos los tipos de cartas
     static void crealistas(){
         Todas.add(carta1);
         Todas.add(carta2);
@@ -124,6 +126,7 @@ public class Cartas {
         Todas.add(cartaDragoncito);
 
     }
+    //metodo para realizar la accion de la roboncito
     public static void accionRoboncito(){
         Jugadores Enemigo = Jugadores.getInstance("Enemigo");
         if(Enemigo.Mano.isEmpty() == false) {

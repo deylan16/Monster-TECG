@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.annotations" level="project" />
   </component>
 </module>

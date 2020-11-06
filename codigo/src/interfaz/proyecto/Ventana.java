@@ -30,7 +30,7 @@ public class Ventana extends JPanel {
     private Ventana() {
     }
     
-
+    //Singleton
     public  static Ventana getInstance() {
         if (Instancia == null){
             Instancia = new Ventana();
@@ -38,16 +38,18 @@ public class Ventana extends JPanel {
 
         return Instancia;
     }
-
+    //inicia el frame donde estara toda la interfaz
     public void abrirVentana(){
         frame.setLayout(new GridBagLayout());
         panelLucha();
         panelUsuario();
         frame.setSize(900, 700);
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+    public void ventanavisible(){
+        frame.setVisible(true);
+    }
+    //metodo que pone panel donde estaran las cartas que se juegan y la vida de cada jugador
     public void panelLucha(){
         PanelLucha = new ImagenFondo("imagenes/campo de batalla.jpg",false);
         PanelLucha.setLayout(new GridBagLayout());
@@ -68,6 +70,7 @@ public class Ventana extends JPanel {
         GridBagConstraints luchaDimension = dimensiones(0, 0, 2, 1, 1.0, 1.0);
         frame.add(PanelLucha, luchaDimension);
     }
+    //metodo que pone panel donde el usuario trandra sus cartas, el deck, el boton de pasar y el de movimientos
     public void panelUsuario(){
             panelUsuario = new JPanel();
             panelUsuario.setLayout(new GridBagLayout());
@@ -470,6 +473,7 @@ public class Ventana extends JPanel {
             GridBagConstraints usuarioDimension = dimensiones(0, 1, 2, 2, 1.0, 0.3);
             frame.add(panelUsuario,usuarioDimension);
         }
+        //metodo que pone frame donde el usuario vera los movimientos del juegos
     public void framemovimientos(boolean Movimientrosabierto){
         Movimientos.setEnabled(false);
         if (Movimientrosabierto) {
@@ -508,6 +512,7 @@ public class Ventana extends JPanel {
             }
         });
     }
+    //metedo para pasar el turno de jugador a jugador
     public void turno(String quien){
         if (quien == "Enemigo"){
             frame.remove(panelUsuario);
@@ -518,6 +523,7 @@ public class Ventana extends JPanel {
             frame.repaint();
         }
     }
+    //metodo que pone panel dentro del panel lucha donde se vera la vida de cada jugador
     public void PanelSuperior(){
         panelSuperior = new ImagenFondo("imagenes/fondo superior.jpg",false);
         panelSuperior.setLayout(new GridBagLayout());
@@ -532,6 +538,7 @@ public class Ventana extends JPanel {
 
         PanelLucha.add(panelSuperior,dimensiones(0, 0, 5, 1, 0.7, 0.8));
     }
+    //metodo que revisa si el mana es suficiente para lanzar una carta
     public void avisomana(){
         new Thread(() -> {
             Jugadores recibio = Jugadores.getInstance("Usuario");
@@ -645,6 +652,7 @@ public class Ventana extends JPanel {
             bajamana(0,"Usuario");
         }).start();
     }
+    //metodo que recibe la carta del enemigo y la efectua
     public void AtaqueEnemigo(Cartas carta) {
         Jugadores Enemigo2 = Jugadores.getInstance("Enemigo");
         new Thread(() -> {
@@ -697,6 +705,7 @@ public class Ventana extends JPanel {
             turno("Usuario");
         }}).start();
     }
+    //metodo que revisa si alguien gano
     public void revisa(){
         Jugadores Usuario = Jugadores.getInstance("Usuario");
         Jugadores Enemigo = Jugadores.getInstance("Enemigo");
@@ -714,7 +723,7 @@ public class Ventana extends JPanel {
         }).start();
 
     }
-
+    //metodo para ingresar la dimensiones de un componente
     public GridBagConstraints dimensiones(int empiezaC, int empiezaF, int ocupaC, int ocupaF,Double estirax,Double estiray){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = empiezaC; // El área de texto empieza en la columna cero.
@@ -726,6 +735,7 @@ public class Ventana extends JPanel {
         constraints.fill = GridBagConstraints.BOTH;
         return constraints;
     }
+    //metodo para bajar vida ya sea al enemigo o al usuario
     public void bajaVida(int daño,String quien){
         Jugadores recibio;
         ImagenFondo interfaz;
@@ -853,6 +863,7 @@ public class Ventana extends JPanel {
         if (recibio.getVida() > 1000){
             recibio.setVida(1000);}
     }
+    //metodo para bajar mana ya sea al enemigo o al usuario
     public void bajamana(int gasto,String quien) {
         Jugadores recibio;
         ImagenFondo interfaz;

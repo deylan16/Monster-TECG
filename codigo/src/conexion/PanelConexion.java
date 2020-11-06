@@ -5,6 +5,8 @@
  */
 package conexion;
 
+import interfaz.proyecto.Ventana;
+
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,6 +94,8 @@ public class PanelConexion extends javax.swing.JFrame {
     private void SERVIDORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SERVIDORActionPerformed
         // TODO add your handling code here:
         PanelCliente servidor;
+        Ventana ventana = Ventana.getInstance();
+        ventana.ventanavisible();
         try {
             servidor = new PanelCliente();
             servidor.setVisible(true);
@@ -103,7 +107,10 @@ public class PanelConexion extends javax.swing.JFrame {
 
     private void HOSTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOSTActionPerformed
         // TODO add your handling code here:
+        Ventana ventana = Ventana.getInstance();
+        ventana.turno("Enemigo");
         PanelServidor host;
+        ventana.ventanavisible();
         try {
             host = new PanelServidor();
             host.setVisible(true);

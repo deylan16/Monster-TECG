@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
+//clase para crear un jpanel con una imagen de fondo
 public class ImagenFondo extends JPanel{
     private Image fondo=null;
     public String imagen;
@@ -16,12 +16,11 @@ public class ImagenFondo extends JPanel{
         this.voltear = voltear;
 
     }
-    public void setImagen(String imagen){
-        this.imagen = imagen;
-    }
+    //metodo para cambiar la carta que se le asigno a un jpanel
     public void setCarta(Cartas carta){
         this.carta = carta;
     }
+    //metodo para obtener la carta que se le asigno a un jpanel
     public Cartas getCarta(){
         return carta;
     }
