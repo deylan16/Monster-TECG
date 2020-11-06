@@ -21,7 +21,7 @@ public class PanelHost extends javax.swing.JFrame{
      */
     public PanelHost() {
         initComponents();
-        PanelHost.print("Vamos a iniciar una conexion \n");
+        PanelHost.print("Vamos a iniciar una conexion \n" , 1);
         SjugadorH = new Servidor();
         try {
             SjugadorH.setIP();
@@ -76,14 +76,19 @@ public class PanelHost extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public static void print(String texto){
-        PanelHost.Texto.append(texto);
+    public static void print(String texto, int numero){
+        if (numero == 1){
+            //PanelHost.Texto.append(texto);
+        }
+    }
+    public static void setCLIP(String CLIP, int Puer){
+        ip = CLIP;
+        port = Puer;
     }
     public static void iniciar() throws Exception{
         //this.setVisible(false);
-        port = SjugadorH.PUERTO + 1;
-        ip = SjugadorH.CLIP;
-        Conexion panel = new Conexion();
+        System.out.println(ip);
+        new Conexion();
         Conexion.setCinvi(ip, port);
         Conexion.Chost();
     }

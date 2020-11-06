@@ -130,7 +130,7 @@ public class PanelCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public static void iniciar() throws Exception{
-        Conexion panel = new Conexion();
+        new Conexion();
     }
     
 }

@@ -8,8 +8,6 @@ package conexion;
 import clases.Jugadores;
 import interfaz.proyecto.Animacion;
 import interfaz.proyecto.Ventana;
-import java.net.InetAddress;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,9 +43,9 @@ public final class Conexion {
     public static void Chost(){
         System.out.println("hola2");
         System.out.println(IIP + " PUTA " + IPU);
-        //CjugadorH = new Cliente(IIP, IPU);
-        //Thread tCH = new Thread(CjugadorH);
-        //tCH.start();
+        CjugadorH = new Cliente(IIP, IPU);
+        Thread tCH = new Thread(CjugadorH);
+        tCH.start();
     }
     public void EChost(Object accion){
         //CjugadorH.envMen(accion);

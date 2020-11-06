@@ -26,13 +26,13 @@ public class Cliente implements Runnable {
         this.PUERTO = puerto;
         this.HOST = host;
     }    
-    public void envMen() throws IOException, Exception{
+    public void envMen(Object accionn) throws IOException, Exception{
         if (accion == 1){
             accion = 2;
             PanelCliente.iniciar();
         }
         else{
-         //SALIDA.writeInt(12);   
+            //SALIDA.  
         }
     }
     public void closeC() throws IOException{
@@ -51,7 +51,7 @@ public class Cliente implements Runnable {
             this.CLIENTE = new Socket(HOST, PUERTO);
             System.out.println("Cliente: Conectado");
             SALIDA = new DataOutputStream(CLIENTE.getOutputStream()); //Se crea carril de salida de datos
-            this.envMen();
+            this.envMen(null);
         }       
         catch (IOException ex) {
             System.out.println("Hubo un error, cliente");

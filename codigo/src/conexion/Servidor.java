@@ -26,6 +26,10 @@ public class Servidor extends Observable implements Runnable{
     private DataInputStream ENTRADA;
     private ServerSocket SERVIDOR;
     private int action = 1;
+
+    public int getPUERTO() {
+        return PUERTO;
+    }
     
     public void setIP() throws Exception{
         //Para obtener la IP de la computadora
@@ -42,14 +46,14 @@ public class Servidor extends Observable implements Runnable{
     public void recMen() throws IOException, Exception{  //Lee los mensajes que vienen en entrada y resetea para nueva entrada
         if (action == 1) {
             action = 2;
-            this.CLIP = this.CLIENTE.getLocalAddress().getHostAddress();
-            PanelHost.print("Servidor: Jugador conectado \n");
+            PanelHost.setCLIP(this.CLIENTE.getLocalAddress().getHostAddress(), PUERTO);
+            PanelHost.print("Servidor: Jugador conectado \n", 1);
             PanelHost.iniciar();
         }
         else {
-            //int Mensaje = ENTRADA.readInt();
-            //System.out.println(Mensaje);
-            //ENTRADA.reset();   
+            int Mensaje = ENTRADA.readInt();
+            System.out.println(Mensaje);
+            ENTRADA.reset();   
         }
     }
     public void closeC() throws IOException{
@@ -61,11 +65,10 @@ public class Servidor extends Observable implements Runnable{
     public void run() {       
         try{
             System.out.println("Se creo un servidor");
-            System.out.println(PUERTO);
-            System.out.println(InetAddress.getLocalHost());
             this.SERVIDOR = new ServerSocket(PUERTO, 1, InetAddress.getLocalHost());
-            PanelHost.print("Se creo un servidor \n");
-            PanelHost.print(HOST + "  en el puerto: " + PUERTO + "\n");
+            System.out.println(PUERTO + "  " + HOST);
+            PanelHost.print("Se creo un servidor \n", 1);
+            PanelHost.print(HOST + "  en el puerto: " + PUERTO + "\n", 1);
             while(true){
                 this.CLIENTE = SERVIDOR.accept();
                 System.out.println("Servidor: Se conecto alguien");
