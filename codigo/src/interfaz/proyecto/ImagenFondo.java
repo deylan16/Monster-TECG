@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * <p>Esta clase se creo para crear un jpanel con fondo
  * </p>
  * @author Deylan
- * @author johnn
+ * @author Johnny
  */
 public class ImagenFondo extends JPanel{
     private Image fondo=null;

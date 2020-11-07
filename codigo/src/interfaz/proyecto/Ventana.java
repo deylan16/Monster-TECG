@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * <p>Esta clase se creo para crear la interfaz grafica del juego
  * </p>
  * @author Deylan
- * @author johnn
+ * @author Johnny
  */
 public class Ventana extends JPanel {
     ImagenFondo PanelLucha,panelSuperior;

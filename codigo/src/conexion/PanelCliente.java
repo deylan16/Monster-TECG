@@ -8,8 +8,9 @@ package conexion;
 import java.net.UnknownHostException;
 
 /**
- *
- * @author johnn
+ * <p>Se genera un panel para el cliente</p>
+ * @author Deylan
+ * @author Johnny
  */
 public class PanelCliente extends javax.swing.JFrame {
     private final int PORT;
@@ -18,7 +19,7 @@ public class PanelCliente extends javax.swing.JFrame {
     private static String port = null;
     private static String MENSAJE;
     /**
-     * Creates new form PanelCliente
+     * <p>Creates new form PanelCliente</p>
      * @throws java.net.UnknownHostException
      */
     public PanelCliente() throws UnknownHostException {
@@ -154,10 +155,11 @@ public class PanelCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-    public void AccionEnviar(){
 
-    }
-
+    /**
+     * <p>Setea un mensaje el cual es el que se envia por el socket cliente, el mensaje es el json serializado</p>
+     * @param Mensaje
+     */
     public static void SetMensaje(String Mensaje){
         PanelCliente.MENSAJE = Mensaje;
         PanelCliente.Enviar.setEnabled(true);

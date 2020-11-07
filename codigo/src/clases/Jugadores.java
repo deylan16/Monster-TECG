@@ -3,6 +3,10 @@ package clases;
 import interfaz.proyecto.ImagenFondo;
 import interfaz.proyecto.Ventana;
 
+/**
+ * @author Deylan
+ * @author Johnny
+ */
 public class Jugadores {
     private static Jugadores Usuario = null;
     private static Jugadores Enemigo = null;
@@ -16,7 +20,11 @@ public class Jugadores {
 
     }
 
-
+    /**
+     * <p> Obtiene la instancia de quien está llamando a la acción </p>
+     * @param quien
+     * @return Instancia
+     */
     public  static Jugadores getInstance(String quien) {
         if (quien == "Usuario"){
             if (Usuario == null){
@@ -53,6 +61,10 @@ public class Jugadores {
     public void gasto(int gasto){
         this.mana -= gasto;
     }
+
+    /**
+     *<p> En esta instancia se crea la mano del usuario, donde se añaden 4 cartas al inicio</p>
+     */
     public void creaMano(){
         Movimientos.add("Movimientos");
         Cartas.crealistas();
@@ -82,6 +94,11 @@ public class Jugadores {
 
         actualizamano(0);
     }
+
+    /**
+     *<p> Actualiza la mano cuadno se agarra una carta del deck o cuando se modifica</p>
+     * @param empieza
+     */
     public void actualizamano(int empieza) {
         int NumeroCarta = 0;
         int i;

@@ -6,7 +6,7 @@ import clases.ListaDoble;
  * <p>Esta clase se creo para realizar la animacion de lanzar una carta
  * </p>
  * @author Deylan
- * @author johnn
+ * @author Johnny
  */
 public class Animacion {
     public static ListaDoble<String> AnimacionBasica = new ListaDoble<String>();

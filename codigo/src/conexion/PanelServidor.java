@@ -8,15 +8,15 @@ package conexion;
 import java.net.UnknownHostException;
 
 /**
- *
- * @author johnn
+ * @author Deylan
+ * @author Johnny
  */
 public class PanelServidor extends javax.swing.JFrame {
     private int PORT;
     private String IP;
     private String MENSAJE;
     /**
-     * Creates new form PanelCliente
+     * <p> Creates new form PanelCliente </p>
      */
     public PanelServidor() throws UnknownHostException {
         initComponents();
@@ -138,6 +138,10 @@ public class PanelServidor extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * <p>Setea el mensaje que se envia por el cliente, este mensaje es el json serealizado en string</p>
+     * @param Mensaje
+     */
     public void SetMensaje(String Mensaje){
         this.MENSAJE = Mensaje;
         this.Enviar.setEnabled(true);

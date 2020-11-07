@@ -15,8 +15,8 @@ import java.io.IOException;
  * <p>Esta clase se creo para decodificar el json que llega el usuario
  * </p>
  * @author Deylan
- * @author johnn
- */
+ * @author Johnny
+**/
 public class Analizar {
     Ventana inicia;
 

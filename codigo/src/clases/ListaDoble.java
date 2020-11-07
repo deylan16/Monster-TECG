@@ -1,5 +1,11 @@
 package clases;
 
+/**
+ * <p>Clase lista doble</p>
+ * @author Deylan
+ * @author Johnny
+ * @param <T>
+ */
 public class ListaDoble<T> {
     private Node<T> first;
     private int size = 0;
@@ -9,12 +15,16 @@ public class ListaDoble<T> {
         this.first = null;
     }
 
+    /**
+     *<p>Averigua si la lista esta vacia</p>
+     * @return boolean
+     */
     public boolean isEmpty() {
         return this.first == null;
     }
 
     /**
-     * Adds an element to the end
+     * <p>Añade un elemento al final de la lista</p>
      *
      * @param element the element to add
      */
@@ -37,6 +47,10 @@ public class ListaDoble<T> {
         }
 
     }
+
+    /**
+     *<p>Printea toda la lista</p>
+     */
     public void print(){
         if (this.isEmpty()) {
             System.out.print("lista vacia");
@@ -49,6 +63,10 @@ public class ListaDoble<T> {
             System.out.print(ref.getValue());
         }
     }
+
+    /**
+     *<p>Printea los valores de la lista</p>
+     */
     public void printR(){
         if (this.isEmpty()) {
             System.out.print("lista vacia");
@@ -61,6 +79,10 @@ public class ListaDoble<T> {
             System.out.print(ref.getValue());
         }
     }
+
+    /**
+     *<p>Borra la última carta de la lista</p>
+     */
     public void deletePila() {
         if(this.first == this.last){
             this.first = null;
@@ -78,6 +100,11 @@ public class ListaDoble<T> {
         return this.size;
     }
     
+    /**
+     * <p>Obtiene el valor del nodo en la posicion deseada</p>
+     * @param indice
+     * @return valor del nodo
+     */
     public T getForIndex(int indice){
         int i = 0;
         if (this.isEmpty()) {

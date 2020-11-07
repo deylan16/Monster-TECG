@@ -1,5 +1,11 @@
 package clases;
 
+/**
+ * <p> Clase lista circular</p>
+ * @author Deylan
+ * @author Johnny
+ * @param <T>
+ */
 public class ListaCircular<T>  {
     private Node<T> first;
     private int size = 0;
@@ -16,6 +22,10 @@ public class ListaCircular<T>  {
     public int getSize(){
         return this.size;
     }
+
+    /**
+     *<p> Printea toda la lista circular</p>
+     */
     public void print(){
         if (this.isEmpty()) {
             System.out.print("lista vacia");
@@ -28,6 +38,11 @@ public class ListaCircular<T>  {
             System.out.print(ref.getValue());
         }
     }
+
+    /**
+     * <p> Añade un nuevo elemento a la lista </p>
+     * @param element
+     */
     public void add(T element) {
         if (this.isEmpty()) {
             this.size += 1;
@@ -48,7 +63,12 @@ public class ListaCircular<T>  {
         }
 
     }
-    //retorna solo el valor del nodo
+
+    /**
+     * <p> Metodo para obtener el valor del nodo en la posicion indicada </p>
+     * @param indice
+     * @return el valor del nodo deseado
+     */
     public T getForIndex(int indice) {
         int i = 0;
         if (this.isEmpty()) {
@@ -70,7 +90,11 @@ public class ListaCircular<T>  {
         }
         return null;
     }
-    //retorna todo el nodo
+    /**
+     *<p> Obtiene todo el nodo de la posicion deseada</p>
+     * @param indice
+     * @return retorna todo el nodo
+     */
     public Node<T> getForIndex2(int indice) {
         int i = 0;
         if (this.isEmpty()) {
@@ -92,6 +116,11 @@ public class ListaCircular<T>  {
         }
         return null;
     }
+
+    /**
+     * <p> Borra una carta</p>
+     * @param carta
+     */
     public void borrar(Cartas carta){
         Node<T> ref = this.first;
         T i = ref.getValue();
@@ -122,11 +151,16 @@ public class ListaCircular<T>  {
                     }
         }
         
-
-
+    /**
+     * <p>Pone la lista de la mano en vacia</p>
+     * @return lista vacia
+     */
     public static ListaCircular Borra(){
         return ListaVacia;}
-        //verifica si la lista tiene un valor menor a cuatro, se una en la mano para que simpre tenga cuantro cartas, cuando tiene menos se agrega una carta vacia
+
+    /**
+     *<p> verifica si la lista tiene un valor menor a cuatro, se una en la mano para que simpre tenga cuantro cartas, cuando tiene menos se agrega una carta vacia </p>
+     */
     public void verifica() {
         if (getSize() < 4) {
             Jugadores Usuario = Jugadores.getInstance("Usuario");

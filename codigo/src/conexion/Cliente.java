@@ -12,8 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author johnn
+ * <p>Clase cliente para enviar un mensaje</p>
+ * @author Deylan
+ * @author Johnny
  */
 public class Cliente implements Runnable{
     private int PUERTO;
@@ -21,6 +22,12 @@ public class Cliente implements Runnable{
     private String MENSAJE;
     private DataOutputStream OUT;
 
+    /**
+     * <p>Se crea una instancia cliente con el puerto y host para enviar el mensaje</p>
+     * @param puerto
+     * @param host
+     * @param mensaje
+     */
     public Cliente(int puerto, String host, String mensaje){
         this.PUERTO = puerto;
         this.HOST = host;

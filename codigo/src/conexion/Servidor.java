@@ -16,18 +16,27 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- *
- * @author johnn
+ * <p>Clase servidor</p>
+ * @author Deylan
+ * @author Johnny
  */
 public class Servidor implements Runnable{
     private int PUERTO;
     private String IP;
     private DataInputStream IN;
     
+    /**
+     * <p>Se crea el servidor y se setea la ip local</p>
+     * @throws UnknownHostException
+     */
     public Servidor() throws UnknownHostException {
        InetAddress address = InetAddress.getLocalHost();
        this.IP = address.getHostAddress();
     }
+
+    /**
+     * <p>Se setea un puerto aleatorio entre 10000 y 60000</p>
+     */
     public void SetPort(){
         int min = 10000;
         int max = 60000;

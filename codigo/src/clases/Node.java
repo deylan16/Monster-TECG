@@ -2,6 +2,12 @@ package clases;
 
 import java.awt.*;
 
+/**
+ * <p>Clase nodo para las listas</p>
+ * @author Deylan
+ * @author Johnny
+ * @param <T>
+ */
 public class Node<T> {
     private T value;
     public Node next;
