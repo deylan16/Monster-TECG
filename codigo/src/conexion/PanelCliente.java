@@ -14,6 +14,8 @@ import java.net.UnknownHostException;
 public class PanelCliente extends javax.swing.JFrame {
     private final int PORT;
     private final String IP;
+    private String ip = null;
+    private static String port = null;
     private static String MENSAJE;
     /**
      * Creates new form PanelCliente
@@ -114,20 +116,34 @@ public class PanelCliente extends javax.swing.JFrame {
 
     private void EnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarActionPerformed
         // TODO add your handling code here:
-        try{
-            String puerto = this.Puerto.getText();
+        if(this.port == null){
+            try{
+                String puerto = this.Puerto.getText();
+                this.port = puerto;
+                int enviaje = Integer.parseInt(puerto);
+                String ip = this.Ip.getText();
+                this.ip = ip;
+                String mensaje = MENSAJE;
+                Cliente cliente = new Cliente(enviaje, ip, mensaje);
+                Thread t = new Thread(cliente);
+                t.start();
+                PanelCliente.Enviar.setEnabled(false);
+            }
+            catch(NumberFormatException ex) {
+            }
+        }else{
+            this.setVisible(false);
+            String puerto = this.port;
             int enviaje = Integer.parseInt(puerto);
-            String ip = this.Ip.getText();
+            String ip = this.ip;
             String mensaje = MENSAJE;
             Cliente cliente = new Cliente(enviaje, ip, mensaje);
             Thread t = new Thread(cliente);
             t.start();
             PanelCliente.Enviar.setEnabled(false);
         }
-        catch(NumberFormatException ex){
             
-        }
-    }//GEN-LAST:event_EnviarActionPerformed
+        }//GEN-LAST:event_EnviarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton Enviar;
@@ -138,10 +154,16 @@ public class PanelCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+    public void AccionEnviar(){
+
+    }
 
     public static void SetMensaje(String Mensaje){
         PanelCliente.MENSAJE = Mensaje;
         PanelCliente.Enviar.setEnabled(true);
+        if(port != null){
+            PanelCliente.Enviar.doClick();
+        }
     }
 }
 

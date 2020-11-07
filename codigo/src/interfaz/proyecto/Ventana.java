@@ -942,7 +942,7 @@ public class Ventana extends JPanel {
             }
             CartaDerecha.imagen = carta.getImagen();
             turno("Enemigo");
-            this.cuenta -= 1;
+            this.cuentaE -= 1;
         } else {
             if (carta.getNombre().equals("Dragoncito")) {
                 Jugadores Enemigo = Jugadores.getInstance("Usuario");
@@ -951,7 +951,7 @@ public class Ventana extends JPanel {
                 bajaVida(carta.getDaño(), "Usuario");
             }
             if (carta.getAQuienMana().equals("Usuario")) {
-                bajamana(carta.getCoste(), "Usuario");
+                bajamana(carta.getCoste(), "Enemigo");
             } else {
                 if (carta.getAQuienMana().equals("bloqueo")) {
                     this.Bloqueo = true;
