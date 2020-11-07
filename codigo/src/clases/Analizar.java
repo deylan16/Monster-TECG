@@ -12,12 +12,20 @@ import interfaz.proyecto.Ventana;
 import java.io.IOException;
 
 /**
- *
+ * <p>Esta clase se creo para decodificar el json que llega el usuario
+ * </p>
+ * @author Deylan
  * @author johnn
  */
 public class Analizar {
     Ventana inicia;
 
+    /**
+     * <p>descodifica el json que llega al usuario y llama la clase para realizar el ataque enemigo
+     * </p>
+     * @param mensaje
+     * @throws IOException
+     */
     public Analizar(String mensaje) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode Nodecarta = mapper.readTree(mensaje);
