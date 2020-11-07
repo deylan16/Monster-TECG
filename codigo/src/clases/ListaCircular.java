@@ -4,6 +4,7 @@ public class ListaCircular<T>  {
     private Node<T> first;
     private int size = 0;
     private Node<T> last;
+    public static ListaCircular<Cartas> ListaVacia = new ListaCircular<Cartas>();
 
     public ListaCircular() {
         this.first = null;
@@ -123,11 +124,8 @@ public class ListaCircular<T>  {
         
 
 
-    public void Borra(){
-        this.first = null;
-        this.last = null;
-        size = 0;
-        verifica();}
+    public static ListaCircular Borra(){
+        return ListaVacia;}
         //verifica si la lista tiene un valor menor a cuatro, se una en la mano para que simpre tenga cuantro cartas, cuando tiene menos se agrega una carta vacia
     public void verifica() {
         if (getSize() < 4) {

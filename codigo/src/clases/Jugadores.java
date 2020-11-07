@@ -6,7 +6,7 @@ import interfaz.proyecto.Ventana;
 public class Jugadores {
     private static Jugadores Usuario = null;
     private static Jugadores Enemigo = null;
-    private int vida = 1000,mana = 1000;
+    private int vida = 1000,mana = 200;
     public ListaCircular<Cartas> Mano = new ListaCircular<Cartas>();
     public Pila<Cartas> deck = new Pila<Cartas>();
     public static ListaDoble<String> Movimientos = new ListaDoble<String>();
@@ -56,7 +56,7 @@ public class Jugadores {
     public void creaMano(){
         Movimientos.add("Movimientos");
         Cartas.crealistas();
-        Mano.add(Cartas.cartaDesmotivacion);
+        Mano.add(Cartas.cartaBlocito);
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));
         Mano.add(Cartas.Todas.getForIndex((int) (Math.random()*Cartas.Todas.getSize()+1)));

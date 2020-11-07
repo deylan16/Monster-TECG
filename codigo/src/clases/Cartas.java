@@ -21,7 +21,7 @@ public class Cartas {
     static Cartas carta18 = new Cartas(250,400,"imagenes/Huevonado.png","Huevonado","Enemigo",0,"Usuario","Esbirro");
     static Cartas carta19 = new Cartas(350,700,"imagenes/Phineas.png","Phineas","Enemigo",0,"Usuario","Esbirro");
     public static Cartas carta20 = new Cartas(350,700,"imagenes/Ferb.png","Ferb","Enemigo",0,"Usuario","Esbirro");
-    static Cartas cartaVacia = new Cartas(0,0,"imagenes/vacio.jpg","vacio","Enemigo",0,"Usuario","Hechizo");
+    public static Cartas cartaVacia = new Cartas(0,0,"imagenes/vacio.jpg","vacio","Enemigo",0,"Usuario","Hechizo");
     static Cartas cartaFriito = new Cartas(0,200,"imagenes/Friito.png","Friito","Usuario",0,"Usuario","Hechizo");
     static Cartas cartaCurita = new Cartas(-50*(int) (Math.random()*20+1),300,"imagenes/Curita.png","Curita","Enemigo",0,"Usuario","Hechizo");
     public static Cartas cartaPoderzote = new Cartas(0,600,"imagenes/Poderzote.png","Poderzote","Enemigo",3,"Usuario","Hechizo");
@@ -124,7 +124,6 @@ public class Cartas {
         Todas.add(cartaPoderzote);
         Todas.add(cartaManamita);
         Todas.add(cartaPodercito);
-        Todas.add(cartaRoboncito);
         Todas.add(cartaInstaKill);
         Todas.add(cartaManacito);
         Todas.add(cartaBlocito);

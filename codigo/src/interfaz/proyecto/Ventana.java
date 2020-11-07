@@ -2,6 +2,7 @@ package interfaz.proyecto;
 
 import clases.Cartas;
 import clases.Jugadores;
+import clases.ListaCircular;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.annotation.*;
@@ -19,7 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Ventana extends JPanel {
-    JPanel PanelLucha,panelSuperior,panelUsuario;
+    ImagenFondo PanelLucha,panelSuperior;
+    JPanel panelUsuario;
     public JButton Carta1,Carta2,Carta3,Carta4,Movimientos,paso;
     public ImagenFondo CartaUsuario,vidausuario,manausuario,vidaenemigo,manaenemigo,ImagenCarta1,ImagenCarta2,ImagenCarta3,ImagenCarta4,CartaDerecha;
     private static Ventana Instancia = null;
@@ -42,6 +44,10 @@ public class Ventana extends JPanel {
     }
     //inicia el frame donde estara toda la interfaz
     public void abrirVentana(){
+        ListaCircular.ListaVacia.add(Cartas.cartaVacia);
+        ListaCircular.ListaVacia.add(Cartas.cartaVacia);
+        ListaCircular.ListaVacia.add(Cartas.cartaVacia);
+        ListaCircular.ListaVacia.add(Cartas.cartaVacia);
         frame.setLayout(new GridBagLayout());
         panelLucha();
         panelUsuario();
@@ -149,9 +155,10 @@ public class Ventana extends JPanel {
                             bajaVida(1000,"Usuario");
                         }
                         if(ImagenCarta1.getCarta().getNombre() == "Borretux"){
-                            NumeroCartamuestra = 0;
-                            Usuario.Mano.Borra();
+                            Usuario.Mano = ListaCircular.Borra();
                             Usuario.actualizamano(0);
+                            turno("Enemigo");
+
                         }
                         if(ImagenCarta1.getCarta().getNombre() == "Borrtex"){ ;
                         }
@@ -244,6 +251,10 @@ public class Ventana extends JPanel {
                         }).start();
                     } else {
                         avisomana();
+                        Carta4.setEnabled(true);
+                        Carta3.setEnabled(true);
+                        Carta2.setEnabled(true);
+                        Carta1.setEnabled(true);
                     }
                 }
 
@@ -279,9 +290,10 @@ public class Ventana extends JPanel {
                         if(ImagenCarta2.getCarta().getNombre() == "InstaLoser"){
                             bajaVida(1000,"Usuario");
                         }
-                        if(ImagenCarta2.getCarta().getNombre() == "Borretux"){ ;
-                        Usuario.Mano.Borra();
-                        Usuario.actualizamano(0);
+                        if(ImagenCarta2.getCarta().getNombre() == "Borretux"){
+                            Usuario.Mano = ListaCircular.Borra();
+                            Usuario.actualizamano(0);
+                            turno("enemigo");
                         }
                         if(ImagenCarta2.getCarta().getNombre() == "Borrtex"){ ;
                         }
@@ -372,6 +384,10 @@ public class Ventana extends JPanel {
 
                     }).start();
                 }else{
+                    Carta4.setEnabled(true);
+                    Carta3.setEnabled(true);
+                    Carta2.setEnabled(true);
+                    Carta1.setEnabled(true);
                     avisomana();
                 }}
 
@@ -408,8 +424,9 @@ public class Ventana extends JPanel {
                             bajaVida(1000,"Usuario");
                         }
                         if(ImagenCarta3.getCarta().getNombre() == "Borretux"){
-                        Usuario.Mano.Borra();
-                        Usuario.actualizamano(0);
+                            Usuario.Mano = ListaCircular.Borra();
+                            Usuario.actualizamano(0);
+                            turno("enemigo");
                         }
                         if(ImagenCarta3.getCarta().getNombre() == "Borrtex"){ ;
                         }
@@ -502,6 +519,10 @@ public class Ventana extends JPanel {
 
                                 }).start();
                             } else {
+                                Carta4.setEnabled(true);
+                                Carta3.setEnabled(true);
+                                Carta2.setEnabled(true);
+                                Carta1.setEnabled(true);
                                 avisomana();
                             }
                         }
@@ -538,8 +559,9 @@ public class Ventana extends JPanel {
                             bajaVida(1000,"Usuario");
                         }
                         if(ImagenCarta4.getCarta().getNombre() == "Borretux"){ ;
-                        Usuario.Mano.Borra();
-                        Usuario.actualizamano(0);
+                            Usuario.Mano = ListaCircular.Borra();
+                            Usuario.actualizamano(0);
+                            turno("enemigo");
                         }
                         if(ImagenCarta4.getCarta().getNombre() == "Borrtex"){ ;
                         }
@@ -632,6 +654,10 @@ public class Ventana extends JPanel {
 
                     }).start();
                 }else{
+                    Carta4.setEnabled(true);
+                    Carta3.setEnabled(true);
+                    Carta2.setEnabled(true);
+                    Carta1.setEnabled(true);
                     avisomana();
                 }}
             });
@@ -726,11 +752,11 @@ public class Ventana extends JPanel {
         panelSuperior.setLayout(new GridBagLayout());
         vidausuario = new ImagenFondo("imagenes/vida 1000.jpg",false);
         panelSuperior.add(vidausuario,dimensiones(0, 0, 1, 1, 0.9, 1.0));
-        manausuario = new ImagenFondo("imagenes/mana 1000.jpg",false);
+        manausuario = new ImagenFondo("imagenes/mana 200.jpg",false);
         panelSuperior.add(manausuario,dimensiones(0, 1, 1, 1, 0.9, 1.0));
         vidaenemigo = new ImagenFondo("imagenes/vida 1000.jpg",true);
         panelSuperior.add(vidaenemigo,dimensiones(2, 0, 1, 1, 0.9, 1.0));
-        manaenemigo = new ImagenFondo("imagenes/mana 1000.jpg",true);
+        manaenemigo = new ImagenFondo("imagenes/mana 200.jpg",true);
         panelSuperior.add(manaenemigo,dimensiones(2, 1, 1, 1, 0.9, 1.0));
 
         PanelLucha.add(panelSuperior,dimensiones(0, 0, 5, 1, 0.7, 0.8));
@@ -897,7 +923,7 @@ public class Ventana extends JPanel {
             e.printStackTrace();
         }
         Jugadores.Movimientos.add("Hecho por: Enemigo" + "\n" + "Nombre:" + carta.getNombre() + "\n" + "Daño:" + carta.getCoste());
-        if (carta.getImagen() == "imagenes/Roboncito.png") {
+        if (carta.getImagen().equals("imagenes/Roboncito.png")) {
             Cartas.accionRoboncito();
         }
         if (carta.getCuentapoderzote() != 0) {
@@ -906,10 +932,10 @@ public class Ventana extends JPanel {
             turno("Usuario");
         }
         if (this.cuentaE != 0) {
-            if (carta.getAQuienMana() == "bloqueo") {
+            if (carta.getAQuienMana().equals("bloqueo")) {
                 this.Bloqueo = true;
             }
-            if (carta.getNombre() == "Dragoncito") {
+            if (carta.getNombre().equals("Dragoncito")) {
                 bajaVida((int) (Usuario.getVida() * 0.25), "Usuario");
             } else {
                 bajaVida(carta.getDaño(), "Usuario");
@@ -918,16 +944,16 @@ public class Ventana extends JPanel {
             turno("Enemigo");
             this.cuenta -= 1;
         } else {
-            if (carta.getNombre() == "Dragoncito") {
+            if (carta.getNombre().equals("Dragoncito")) {
                 Jugadores Enemigo = Jugadores.getInstance("Usuario");
                 bajaVida((int) (Enemigo.getVida() * 0.25), "Usuario");
             } else {
                 bajaVida(carta.getDaño(), "Usuario");
             }
-            if (carta.getAQuienMana() == "Usuario") {
+            if (carta.getAQuienMana().equals("Usuario")) {
                 bajamana(carta.getCoste(), "Usuario");
             } else {
-                if (carta.getAQuienMana() == "bloqueo") {
+                if (carta.getAQuienMana().equals("bloqueo")) {
                     this.Bloqueo = true;
                 }
                 bajamana(carta.getCoste(), "Enemigo");
@@ -947,14 +973,15 @@ public class Ventana extends JPanel {
         Jugadores Usuario = Jugadores.getInstance("Usuario");
         Jugadores Enemigo = Jugadores.getInstance("Enemigo");
         new Thread(() -> {
-
             while(true){
                 if(Enemigo.getVida() <= 0){
+                    PanelLucha.imagen = "imagenes/campo de batalla ganaste.jpg";
                     PanelLucha.removeAll();
                     frame.repaint();
                     break;
                 }else{
                     if(Usuario.getVida() <= 0){
+                        PanelLucha.imagen = "imagenes/campo de batalla perdiste.jpg";
                         PanelLucha.removeAll();
                         frame.repaint();
                         break;}
